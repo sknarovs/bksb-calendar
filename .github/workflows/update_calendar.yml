@@ -1,0 +1,38 @@
+name: Update Calendar
+
+on:
+  schedule:
+    # Run every day at 4:00 AM UTC (7:00 AM Riga time)
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Allows manual trigger from the Actions UI tab
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push commits back to the repo
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Calendar Scraper
+        run: |
+          python3 bikernieki_calendar.py -m 3 -o bikernieki.ics
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add bikernieki.ics
+          # Only commit and push if there are actual changes in the ICS file
+          if ! git diff --cached --exit-code; then
+            git commit -m "Update calendar events [skip ci]"
+            git push
+          else
+            echo "No changes detected in calendar events."
+          fi
