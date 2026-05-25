@@ -198,11 +198,22 @@ def fetch_and_scrape_month(year, month):
     print(f"[*] Fetching calendar: {url}")
     
     req = urllib.request.Request(url, headers=HEADERS)
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            content = resp.read().decode('utf-8')
-    except Exception as e:
-        print(f"[!] Error loading calendar for {year}/{month:02d}: {e}")
+    content = None
+    last_error = None
+
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                content = resp.read().decode('utf-8')
+            break
+        except Exception as e:
+            last_error = e
+            print(f"[!] Attempt {attempt + 1}/3 failed for {year}/{month:02d}: {e}")
+            if attempt < 2:
+                time.sleep(2)
+
+    if content is None:
+        print(f"[!] Error loading calendar for {year}/{month:02d} after retries: {last_error}")
         return []
 
     parser = JEventsHTMLParser()
@@ -408,12 +419,18 @@ class CalendarCache:
             print("[*] Refreshing calendar cache...")
             try:
                 self.events = scrape_full_calendar(self.months_count)
+
+                # Protect against total scrape failure overwriting good data
+                if len(self.events) == 0 and os.path.exists(self.output_file) and os.path.getsize(self.output_file) > 500:
+                    print("[!] Scrape returned 0 events. Preserving existing calendar file.")
+                    return False
+
                 self.ics_data = build_ics_file(self.events)
-                
+
                 # Write to output file
                 with open(self.output_file, 'w', encoding='utf-8') as f:
                     f.write(self.ics_data)
-                
+
                 self.last_updated = datetime.datetime.now()
                 print(f"[+] Successfully refreshed. Extracted {len(self.events)} events.")
                 return True
