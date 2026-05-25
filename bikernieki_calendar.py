@@ -201,15 +201,15 @@ def fetch_and_scrape_month(year, month):
     content = None
     last_error = None
 
-    for attempt in range(3):
+    for attempt in range(2):
         try:
-            with urllib.request.urlopen(req, timeout=45) as resp:
+            with urllib.request.urlopen(req, timeout=20) as resp:
                 content = resp.read().decode('utf-8')
             break
         except Exception as e:
             last_error = e
-            print(f"[!] Attempt {attempt + 1}/3 failed for {year}/{month:02d}: {e}")
-            if attempt < 2:
+            print(f"[!] Attempt {attempt + 1}/2 failed for {year}/{month:02d}: {e}")
+            if attempt < 1:
                 time.sleep(2)
 
     if content is None:

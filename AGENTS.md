@@ -13,7 +13,7 @@ Single-file Python scraper that generates an iCalendar feed for Biķernieku Race
 - **Pure stdlib Python 3** — no `requirements.txt`, `pyproject.toml`, or external packages. Do not create virtualenvs or install dependencies.
 - **Single script** (`bikernieki_calendar.py`, ~1000 lines) contains scraper, ICS generator, HTTP dashboard server, and self-tests.
 - Uses `html.parser.HTMLParser` to scrape JEvents calendar HTML from `bksb.lv`.
-- Network requests use a **45-second timeout with 3 retries** (2-second backoff) because `bksb.lv` is often slow from GitHub Actions runners.
+- Network requests use a **20-second timeout with 1 retry** (2-second backoff) because `bksb.lv` is often unreachable from GitHub Actions runners. Worst-case total hang is ~2 minutes, not 5+.
 - **Excludes non-blocking locations** (office, speedway stadium, museum circuit) via normalized string matching on tooltip "Kur:" field.
 - Adds a **40-minute buffer** before and after every event; handles midnight crossovers.
 - **Data preservation guard**: if scraping returns 0 events and a valid `.ics` file already exists, the script aborts with exit code 1 instead of overwriting the file with an empty calendar.
