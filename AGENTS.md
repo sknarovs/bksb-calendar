@@ -20,6 +20,12 @@ Single-file Python scraper that generates an iCalendar feed for Biķernieku Race
 - Generates stable UIDs with MD5 hashes so calendar apps can deduplicate correctly.
 - Implements RFC 5545 UTF-8 byte folding manually (`fold_ics_line`).
 
+## Automation / Deployment
+
+- **`update_calendar.sh`** runs the scraper and pushes changes to GitHub — intended for a cron job on a home server (e.g. Raspberry Pi).
+- Cron job runs daily; the `.ics` file in the repo stays current for calendar subscription.
+- Requires SSH key auth for `git push` to GitHub (deploy key or personal SSH key).
+
 ## Testing
 
 - Tests are self-contained assertions inside `run_unit_tests()`. No external test runner.
