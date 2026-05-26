@@ -12,10 +12,9 @@ Once set up on your Raspberry Pi, the `.ics` file is pushed to GitHub and stays 
 
 **Subscription URL:**
 ```
-https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/bikernieki.ics
+https://raw.githubusercontent.com/sknarovs/bksb-calendar/main/bikernieki.ics
 ```
 
-Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your actual GitHub values.
 
 ### Steps for iCloud Calendar (iPhone / Mac):
 1. On **iPhone**: go to **Settings → Calendar → Accounts → Add Account → Other → Add Subscribed Calendar**
@@ -64,8 +63,8 @@ The included `update_calendar.sh` script scrapes the calendar and pushes changes
 ### 1. Clone the repo and verify it works
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git ~/bikernieku-calendar
-cd ~/bikernieku-calendar
+git clone https://github.com/sknarovs/bksb-calendar.git ~/bksb-calendar
+cd ~/bksb-calendar
 python3 bikernieki_calendar.py --test
 python3 bikernieki_calendar.py -m 3 -o bikernieki.ics
 ```
@@ -77,12 +76,12 @@ DietPi has `git` pre-installed. For pushing to GitHub, use an SSH key:
 ```bash
 ssh-keygen -t ed25519 -C "dietpi-bikernieku" -f ~/.ssh/id_ed25519 -N ""
 cat ~/.ssh/id_ed25519.pub
-# Add this key as a Deploy Key (with write access) at github.com/YOUR_USERNAME/YOUR_REPO_NAME/settings/keys
+# Add this key as a Deploy Key (with write access) at github.com/sknarovs/bksb-calendar/settings/keys
 # Or add it as an SSH key to your GitHub account
 
 # Switch the remote to SSH:
-cd ~/bikernieku-calendar
-git remote set-url origin git@github.com:YOUR_USERNAME/YOUR_REPO_NAME.git
+cd ~/bksb-calendar
+git remote set-url origin git@github.com:sknarovs/bksb-calendar.git
 ```
 
 Test it:
@@ -98,10 +97,8 @@ crontab -e
 
 Add this line to run every day at 07:00 Riga time (05:00 UTC):
 ```
-0 5 * * * /home/username/bikernieku-calendar/update_calendar.sh >> /tmp/bikernieku-cron.log 2>&1
+0 5 * * * /home/username/bksb-calendar/update_calendar.sh >> /tmp/bikernieku-cron.log 2>&1
 ```
-
-Replace `username` with your actual DietPi user. The log is at `/tmp/bikernieku-cron.log`.
 
 ---
 
