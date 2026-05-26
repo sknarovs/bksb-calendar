@@ -1009,7 +1009,6 @@ def main():
     parser.add_argument("-s", "--serve", action="store_true", help="Start local HTTP server dashboard and iCal subscription feed")
     parser.add_argument("-p", "--port", type=int, default=8080, help="Web server port (default: 8080)")
     parser.add_argument("-t", "--test", action="store_true", help="Run self-testing harness and parser validations")
-    parser.add_argument("-c", "--cron", action="store_true", help="Run single scrape-and-exit process (default behavior without --serve)")
     
     args = parser.parse_args()
     
