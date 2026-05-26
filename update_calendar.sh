@@ -12,6 +12,6 @@ if git diff --quiet -- bikernieki.ics; then
 fi
 
 git add bikernieki.ics
-git commit -m "Update calendar events [skip ci]"
+git commit -m "Update calendar events"
 git push
 echo "[+] Pushed updated calendar to GitHub."
