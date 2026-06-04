@@ -46,7 +46,7 @@ EXCLUDED_LOCATIONS = {
     "bksb birojs",
     "bksb spidveja stadions",
     "bksb motormuzeja likums",
-    "bksb liela stavvieta"
+    "bksb liela auto stavvieta"
 }
 
 def normalize_text(text):
@@ -950,8 +950,8 @@ def run_unit_tests():
     assert normalize_text('BKSB "Motormuzeja līkums"') == 'bksb motormuzeja likums'
     assert normalize_text('BKSB spīdveja stadions') == 'bksb spidveja stadions'
     assert normalize_text('BKSB BIROJS') == 'bksb birojs'
-    assert normalize_text('BKSB lielā stāvvieta') == 'bksb liela stavvieta'
-    assert 'bksb liela stavvieta' in EXCLUDED_LOCATIONS
+    assert normalize_text('BKSB lielā auto stāvvieta') == 'bksb liela auto stavvieta'
+    assert 'bksb liela auto stavvieta' in EXCLUDED_LOCATIONS
     
     # Test RFC 5545 Line folding
     long_line = "SUMMARY:" + "A" * 100

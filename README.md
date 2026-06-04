@@ -38,7 +38,7 @@ https://raw.githubusercontent.com/sknarovs/bksb-calendar/main/bikernieki.ics
    - `BKSB Birojs` (office)
    - `BKSB Spīdveja stadions` (speedway stadium — separate venue)
    - `BKSB "Motormuzeja līkums"` (museum circuit)
-   - `BKSB lielā stāvvieta` (large parking lot — no track impact)
+   - `BKSB lielā auto stāvvieta` (large parking lot — no track impact)
 3. The updated `bikernieki.ics` file is committed and pushed to GitHub
 4. Your subscribed calendar picks up the changes automatically
 
