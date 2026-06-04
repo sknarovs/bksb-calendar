@@ -2,7 +2,7 @@
 
 This tool scrapes the events calendar from [bksb.lv](https://bksb.lv/index.php/2014-01-03-13-49-44/month.calendar/) and generates an iCalendar (`.ics`) subscription feed.
 
-The calendar shows events that **block public access** to the race track (open 6:00–23:00 daily). Events at the office, speedway stadium, or museum circuit are excluded since they don't impact visitors. All events include a **40-minute buffer** before and after (as noted on the official site).
+The calendar shows events that **block public access** to the race track (open 6:00–23:00 daily). Events at the office, speedway stadium, large parking lot, or museum circuit are excluded since they don't impact visitors.
 
 ---
 
@@ -11,6 +11,11 @@ The calendar shows events that **block public access** to the race track (open 6
 Once set up on your Raspberry Pi, the `.ics` file is pushed to GitHub and stays updated daily.
 
 **Subscription URL:**
+```
+https://ej.uz/bksb_calendar
+```
+
+**Raw GitHub URL:**
 ```
 https://raw.githubusercontent.com/sknarovs/bksb-calendar/main/bikernieki.ics
 ```
@@ -33,9 +38,9 @@ https://raw.githubusercontent.com/sknarovs/bksb-calendar/main/bikernieki.ics
    - `BKSB Birojs` (office)
    - `BKSB Spīdveja stadions` (speedway stadium — separate venue)
    - `BKSB "Motormuzeja līkums"` (museum circuit)
-4. Each remaining event gets a **40-minute buffer** added before and after
-5. The updated `bikernieki.ics` file is committed and pushed to GitHub
-6. Your subscribed calendar picks up the changes automatically
+   - `BKSB lielā stāvvieta` (large parking lot — no track impact)
+3. The updated `bikernieki.ics` file is committed and pushed to GitHub
+4. Your subscribed calendar picks up the changes automatically
 
 ---
 

@@ -45,7 +45,8 @@ END:VTIMEZONE"""# Excluded locations that do not impact public access to the rac
 EXCLUDED_LOCATIONS = {
     "bksb birojs",
     "bksb spidveja stadions",
-    "bksb motormuzeja likums"
+    "bksb motormuzeja likums",
+    "bksb liela stavvieta"
 }
 
 def normalize_text(text):
@@ -65,32 +66,7 @@ def normalize_text(text):
     return " ".join(text.split())
 
 
-def adjust_time_with_buffer(date_str, start_time_str, end_time_str, buffer_minutes=40):
-    """
-    Adjusts start and end times with a buffer in minutes.
-    Handles date overflow/underflow (e.g. crossing midnight).
-    """
-    try:
-        start_dt = datetime.datetime.strptime(f"{date_str} {start_time_str}", "%Y-%m-%d %H:%M")
-        end_dt = datetime.datetime.strptime(f"{date_str} {end_time_str}", "%Y-%m-%d %H:%M")
-        
-        # If end time is before start time (e.g. overnight event)
-        if end_dt < start_dt:
-            end_dt += datetime.timedelta(days=1)
-            
-        adjusted_start = start_dt - datetime.timedelta(minutes=buffer_minutes)
-        adjusted_end = end_dt + datetime.timedelta(minutes=buffer_minutes)
-        
-        return (
-            adjusted_start.strftime("%Y-%m-%d"),
-            adjusted_start.strftime("%H:%M"),
-            adjusted_end.strftime("%Y-%m-%d"),
-            adjusted_end.strftime("%H:%M")
-        )
-    except Exception as e:
-        # Fallback to unadjusted times
-        print(f"[!] Error adjusting buffer: {e}")
-        return date_str, start_time_str, date_str, end_time_str
+
 
 
 class JEventsHTMLParser(HTMLParser):
@@ -241,24 +217,27 @@ def fetch_and_scrape_month(year, month):
             print(f"[-] Excluding event due to location '{location}': {summary}")
             continue
             
-        # Apply 40-minute buffer before and after event
-        start_date, start_time_adj, end_date, end_time_adj = adjust_time_with_buffer(
-            date_str, start_time, end_time, 40
-        )
+        # Handle midnight crossing for overnight events
+        end_date = date_str
+        if end_time <= start_time:
+            try:
+                start_dt = datetime.datetime.strptime(f"{date_str} {start_time}", "%Y-%m-%d %H:%M")
+                end_dt = datetime.datetime.strptime(f"{date_str} {end_time}", "%Y-%m-%d %H:%M")
+                if end_dt <= start_dt:
+                    end_date = (start_dt + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            except Exception:
+                pass
         
         event_url = f"{BASE_URL}{href}" if href.startswith('/') else href
         
-        # Generate stable event UID based on adjusted times
-        raw_uid_data = f"{start_date}|{start_time_adj}|{end_date}|{end_time_adj}|{title_text}|{location}"
+        raw_uid_data = f"{date_str}|{start_time}|{end_date}|{end_time}|{title_text}|{location}"
         uid = hashlib.md5(raw_uid_data.encode('utf-8')).hexdigest() + "@bikernieku-calendar"
         
         parsed_events.append({
-            'start_date': start_date,
-            'start_time': start_time_adj,
+            'start_date': date_str,
+            'start_time': start_time,
             'end_date': end_date,
-            'end_time': end_time_adj,
-            'orig_start_time': start_time,
-            'orig_end_time': end_time,
+            'end_time': end_time,
             'summary': summary,
             'category': category,
             'location': location if location else "Bikernieku Trase",
@@ -375,7 +354,6 @@ def build_ics_file(events):
         desc = []
         if ev['category']:
             desc.append(f"Kategorija: {ev['category']}")
-        desc.append(f"Oriģinālais laiks: {ev['orig_start_time']} - {ev['orig_end_time']} (iekļauts 40 min buferis)")
         desc.append(f"Pasākuma saite: {ev['url']}")
         desc_text = "\n".join(desc)
         lines.append(f"DESCRIPTION:{escape_ics_text(desc_text)}")
@@ -968,20 +946,12 @@ def run_unit_tests():
     assert category == "Autošoseja", f"Expected 'Autošoseja', got '{category}'"
     assert location == "Lielā trase", f"Expected 'Lielā trase', got '{location}'"
     
-    # Test Time Buffer Shifting
-    s_date, s_time, e_date, e_time = adjust_time_with_buffer("2026-05-01", "08:00", "20:00", 40)
-    assert s_date == "2026-05-01" and s_time == "07:20", f"Expected 07:20, got {s_time}"
-    assert e_date == "2026-05-01" and e_time == "20:40", f"Expected 20:40, got {e_time}"
-    
-    # Test Midnight Crossing Buffer Shifting
-    s_date, s_time, e_date, e_time = adjust_time_with_buffer("2026-05-01", "00:20", "23:50", 40)
-    assert s_date == "2026-04-30" and s_time == "23:40", f"Expected 2026-04-30 23:40, got {s_date} {s_time}"
-    assert e_date == "2026-05-02" and e_time == "00:30", f"Expected 2026-05-02 00:30, got {e_date} {e_time}"
-    
     # Test Location Normalization
     assert normalize_text('BKSB "Motormuzeja līkums"') == 'bksb motormuzeja likums'
     assert normalize_text('BKSB spīdveja stadions') == 'bksb spidveja stadions'
     assert normalize_text('BKSB BIROJS') == 'bksb birojs'
+    assert normalize_text('BKSB lielā stāvvieta') == 'bksb liela stavvieta'
+    assert 'bksb liela stavvieta' in EXCLUDED_LOCATIONS
     
     # Test RFC 5545 Line folding
     long_line = "SUMMARY:" + "A" * 100
@@ -991,10 +961,10 @@ def run_unit_tests():
     assert lines[1].startswith(' '), "Folded line must start with a space"
     
     # Test stable UID generation
-    raw_uid_data1 = "2026-05-01|07:20|2026-05-01|20:40|08:00-20:00 Test Sacensības|Lielā trase"
+    raw_uid_data1 = "2026-05-01|08:00|2026-05-01|20:00|08:00-20:00 Test Sacensības|Lielā trase"
     uid1 = hashlib.md5(raw_uid_data1.encode('utf-8')).hexdigest() + "@bikernieku-calendar"
     
-    raw_uid_data2 = "2026-05-01|07:20|2026-05-01|20:40|08:00-20:00 Test Sacensības|Lielā trase"
+    raw_uid_data2 = "2026-05-01|08:00|2026-05-01|20:00|08:00-20:00 Test Sacensības|Lielā trase"
     uid2 = hashlib.md5(raw_uid_data2.encode('utf-8')).hexdigest() + "@bikernieku-calendar"
     assert uid1 == uid2, "UID must be stable"
     
