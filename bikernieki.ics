@@ -23,635 +23,8 @@ TZNAME:EEST
 END:DAYLIGHT
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:f9ca18307db43ab97d04d912fcfb1813@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260801T000000
-DTEND;TZID=Europe/Riga:20260801T190000
-SUMMARY:Latvijas rekorda uzstādīšana 24h velobraukšanā
-LOCATION:BKSB Mazā moto trase (Meža aplis)
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/01/11387/-/latvi
- jas-rekorda-uzstadisana-24h-velobrauksana
-END:VEVENT
-BEGIN:VEVENT
-UID:03b9f74442c09d50e8904d32020648d2@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260801T080000
-DTEND;TZID=Europe/Riga:20260801T230000
-SUMMARY:Trase rezervēta Speedway GP of Latvia sacensību nodrošināšanai
-LOCATION:BKSB Spidveja stadions+ kartingu trase
-DESCRIPTION:Kategorija: Spīdvejs\nPasākuma saite: https://bksb.lv/index.
- php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/01/9900/-/trase-rezerve
- ta-speedway-gp-of-latvia-sacensibu-nodrosinasanai
-END:VEVENT
-BEGIN:VEVENT
-UID:8c59b574aee4a5434225049ff008c699@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260802T080000
-DTEND;TZID=Europe/Riga:20260802T230000
-SUMMARY:Trase rezervēta Speedway GP of Latvia sacensību nodrošināšanai
-LOCATION:BKSB Spidveja stadions+ kartingu trase
-DESCRIPTION:Kategorija: Spīdvejs\nPasākuma saite: https://bksb.lv/index.
- php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/02/9901/-/trase-rezerve
- ta-speedway-gp-of-latvia-sacensibu-nodrosinasanai
-END:VEVENT
-BEGIN:VEVENT
-UID:921e35370ed2aa3a9be33b72e0d7b90a@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260803T080000
-DTEND;TZID=Europe/Riga:20260803T230000
-SUMMARY:Trase rezervēta Speedway GP of Latvia sacensību nodrošināšanai
-LOCATION:BKSB Spidveja stadions+ kartingu trase
-DESCRIPTION:Kategorija: Spīdvejs\nPasākuma saite: https://bksb.lv/index.
- php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/03/9902/-/trase-rezerve
- ta-speedway-gp-of-latvia-sacensibu-nodrosinasanai
-END:VEVENT
-BEGIN:VEVENT
-UID:1fcc7f0f391080fd98d3bf895770de0d@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260803T120000
-DTEND;TZID=Europe/Riga:20260803T140000
-SUMMARY:PORSCHE EXPERIENCE
-LOCATION:BKSB Lielā auto trase
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/03/11354/-/porsche-ex
- perience
-END:VEVENT
-BEGIN:VEVENT
-UID:5c81b0cc9f14c36fd865084f5517c060@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260804T080000
-DTEND;TZID=Europe/Riga:20260804T230000
-SUMMARY:Trase rezervēta Speedway GP of Latvia sacensību nodrošināšanai
-LOCATION:BKSB Spidveja stadions+ kartingu trase
-DESCRIPTION:Kategorija: Spīdvejs\nPasākuma saite: https://bksb.lv/index.
- php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/04/9903/-/trase-rezerve
- ta-speedway-gp-of-latvia-sacensibu-nodrosinasanai
-END:VEVENT
-BEGIN:VEVENT
-UID:d960a1a1504410bbf4088a6727ef56b2@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260804T080000
-DTEND;TZID=Europe/Riga:20260804T100000
-SUMMARY:Automašīnu testi
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/04/11117/-/automas
- inu-testi
-END:VEVENT
-BEGIN:VEVENT
-UID:5a4ca8e471c22a4895592e75b49fc1b4@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260805T080000
-DTEND;TZID=Europe/Riga:20260805T230000
-SUMMARY:Trase rezervēta Speedway GP of Latvia sacensību nodrošināšanai
-LOCATION:BKSB Spidveja stadions+ kartingu trase
-DESCRIPTION:Kategorija: Spīdvejs\nPasākuma saite: https://bksb.lv/index.
- php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/05/9904/-/trase-rezerve
- ta-speedway-gp-of-latvia-sacensibu-nodrosinasanai
-END:VEVENT
-BEGIN:VEVENT
-UID:9c03bad1d2a14ccd1045c7e33dd9b8f0@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260805T100000
-DTEND;TZID=Europe/Riga:20260805T153000
-SUMMARY:TV Autoziņas auto filmēšana
-LOCATION:BKSB Meža aplis / Raganas katls
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/05/11388/-/tv-auto
- zinas-auto-filmesana
-END:VEVENT
-BEGIN:VEVENT
-UID:1a03ce5930fa0afd962014a6ed71af80@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260806T080000
-DTEND;TZID=Europe/Riga:20260806T230000
-SUMMARY:Trase rezervēta Speedway GP of Latvia sacensību nodrošināšanai
-LOCATION:BKSB Spidveja stadions+ kartingu trase
-DESCRIPTION:Kategorija: Spīdvejs\nPasākuma saite: https://bksb.lv/index.
- php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/06/9905/-/trase-rezerve
- ta-speedway-gp-of-latvia-sacensibu-nodrosinasanai
-END:VEVENT
-BEGIN:VEVENT
-UID:9c1ed301766e86fcf1e281ad019a7238@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260806T100000
-DTEND;TZID=Europe/Riga:20260806T143000
-SUMMARY:TV Autoziņas auto filmēšana
-LOCATION:BKSB Meža aplis / Raganas katls
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/06/11389/-/tv-auto
- zinas-auto-filmesana
-END:VEVENT
-BEGIN:VEVENT
-UID:75035b3243b571b30cf6424f3ec91454@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260810T100000
-DTEND;TZID=Europe/Riga:20260810T130000
-SUMMARY:Rīgas riteņbraukšanas skolas treniņi
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/10/11335/-/rigas
- -ritenbrauksanas-skolas-trenini
-END:VEVENT
-BEGIN:VEVENT
-UID:07d98808da250d4b13514509fa6f3689@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260811T080000
-DTEND;TZID=Europe/Riga:20260811T100000
-SUMMARY:Automašīnu testi
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/11/11118/-/automas
- inu-testi
-END:VEVENT
-BEGIN:VEVENT
-UID:0cfdc47cbf90c242d5c70b81a2209ed9@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260811T130000
-DTEND;TZID=Europe/Riga:20260811T170000
-SUMMARY:Sponsoru viziniāšanas pasākums
-LOCATION:BKSB mototrases meža daļa
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/11/11133/-/sponsoru-v
- iziniasanas-pasakums
-END:VEVENT
-BEGIN:VEVENT
-UID:55828d9436347324bf6434de1d7f1aaf@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260812T100000
-DTEND;TZID=Europe/Riga:20260812T130000
-SUMMARY:Rīgas riteņbraukšanas skolas treniņi
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/12/11336/-/rigas
- -ritenbrauksanas-skolas-trenini
-END:VEVENT
-BEGIN:VEVENT
-UID:bdfd1f9af87978c2d2d0e1206d2853e2@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260812T120000
-DTEND;TZID=Europe/Riga:20260812T150000
-SUMMARY:Rīgas riteņbraukšanas skolas sacensības
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/12/10463/-/rigas
- -ritenbrauksanas-skolas-sacensibas
-END:VEVENT
-BEGIN:VEVENT
-UID:5640df231274ffbd4b876375bbf6f7e5@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260812T160000
-DTEND;TZID=Europe/Riga:20260812T180000
-SUMMARY:PORSCHE EXPERIENCE
-LOCATION:BKSB Lielā auto trase
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/12/11355/-/porsche-ex
- perience
-END:VEVENT
-BEGIN:VEVENT
-UID:88ad5b11df1b2f93d269307ffd648c5f@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260813T093000
-DTEND;TZID=Europe/Riga:20260813T103000
-SUMMARY:TV Autoziņas auto filmēšana
-LOCATION:BKSB ovāls
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/13/11395/-/tv-auto
- zinas-auto-filmesana
-END:VEVENT
-BEGIN:VEVENT
-UID:723d99316e3b1405772c2752f360f5b2@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260813T120000
-DTEND;TZID=Europe/Riga:20260813T170000
-SUMMARY:RedBull pasākums
-LOCATION:BKSB Lielā moto trase
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/13/11183/-/redbull-pa
- sakums
-END:VEVENT
-BEGIN:VEVENT
-UID:a63c5a4570d4873e0f22b76eb3d1fcc2@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260813T180000
-DTEND;TZID=Europe/Riga:20260813T210000
-SUMMARY:Youngtimer Track Day
-LOCATION:BKSB lielā moto trase
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/13/10709/-/youngtimer
- -track-day
-END:VEVENT
-BEGIN:VEVENT
-UID:a6ed3989dee7b563f4b10c4373b95c06@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260814T100000
-DTEND;TZID=Europe/Riga:20260814T130000
-SUMMARY:RTU Formulas tests
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/14/11390/-/rtu-for
- mulas-tests
-END:VEVENT
-BEGIN:VEVENT
-UID:52ac7abf9658a5c4ff889ae00ef99fb4@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260814T140000
-DTEND;TZID=Europe/Riga:20260814T170000
-SUMMARY:Automašīnu testi
-LOCATION:BKSB Starta/Finiša taisne
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/14/11225/-/automasinu
- -testi
-END:VEVENT
-BEGIN:VEVENT
-UID:3d0ca2cc7fec34882c56ae805aa683c6@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260814T180000
-DTEND;TZID=Europe/Riga:20260814T200000
-SUMMARY:Motošosejas treniņš
-LOCATION:BKSB Lielā moto trase
-DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/14/11396/-/motososeja
- s-trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:513ad1acfc4add5c8e1d7e2b9b121c89@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260815T080000
-DTEND;TZID=Europe/Riga:20260815T200000
-SUMMARY:Porsche kluba trases diena
-LOCATION:BKSB lielā auto trase
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/15/9872/-/porsche-klu
- ba-trases-diena
-END:VEVENT
-BEGIN:VEVENT
-UID:8d1b418313aed0d07a1fb536b456cbf4@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260817T100000
-DTEND;TZID=Europe/Riga:20260817T130000
-SUMMARY:Rīgas riteņbraukšanas skolas treniņi
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/17/11337/-/rigas
- -ritenbrauksanas-skolas-trenini
-END:VEVENT
-BEGIN:VEVENT
-UID:75bb3ea9765abc9298766eba562d4bcd@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260817T110000
-DTEND;TZID=Europe/Riga:20260817T150000
-SUMMARY:DBS kartingu trase
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/17/10768/-/dbs-kar
- tingu-trase
-END:VEVENT
-BEGIN:VEVENT
-UID:8ee38eaa5d60bd1cead6de296479b3a3@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260817T180000
-DTEND;TZID=Europe/Riga:20260817T200000
-SUMMARY:Slēgts treniņš
-LOCATION:Lielais auto aplis
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/17/10720/-/slegts-tre
- nins
-END:VEVENT
-BEGIN:VEVENT
-UID:8255b79f6539567b8db3b6eb6e715703@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260818T080000
-DTEND;TZID=Europe/Riga:20260818T083000
-SUMMARY:TV filmēšana
-LOCATION:BKSB Starta/Finiša taisne
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/18/11399/-/tv-film
- esana
-END:VEVENT
-BEGIN:VEVENT
-UID:0c8a6ce0d69715f78cf83f90aacec661@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260818T080000
-DTEND;TZID=Europe/Riga:20260818T100000
-SUMMARY:Automašīnu testi
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/18/11119/-/automas
- inu-testi
-END:VEVENT
-BEGIN:VEVENT
-UID:3976646ed9c305a70ae3dff3ee2ddf8f@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260818T103000
-DTEND;TZID=Europe/Riga:20260818T113000
-SUMMARY:Privāts treniņš
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/18/11401/-/privats-tr
- enins
-END:VEVENT
-BEGIN:VEVENT
-UID:824ea05d724af457f24b0cc09270a79d@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260818T180000
-DTEND;TZID=Europe/Riga:20260818T210000
-SUMMARY:Motošosejas treniņš
-LOCATION:BKSB Lielā moto trase
-DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/18/11192/-/motososeja
- s-trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:061f2efd68b091fd1545e207affab301@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260819T100000
-DTEND;TZID=Europe/Riga:20260819T200000
-SUMMARY:Rīgas Lielā Balva riteņbraukšanā
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/19/10469/-/rigas
- -liela-balva-ritenbrauksana
-END:VEVENT
-BEGIN:VEVENT
-UID:49dd22478ee0971fba30e978ad1266b6@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260819T100000
-DTEND;TZID=Europe/Riga:20260819T130000
-SUMMARY:Rīgas riteņbraukšanas skolas treniņi
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/19/11338/-/rigas
- -ritenbrauksanas-skolas-trenini
-END:VEVENT
-BEGIN:VEVENT
-UID:d33a3cdbb5eed13b96b32858560a9ba9@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260819T103000
-DTEND;TZID=Europe/Riga:20260819T113000
-SUMMARY:Privāts treniņš
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/19/11406/-/privats-tr
- enins
-END:VEVENT
-BEGIN:VEVENT
-UID:ca64937e1fc408fb09dabf603aabcbae@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260820T100000
-DTEND;TZID=Europe/Riga:20260820T150000
-SUMMARY:TV Autoziņas auto filmēšana
-LOCATION:BKSB ovāls
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/20/11402/-/tv-auto
- zinas-auto-filmesana
-END:VEVENT
-BEGIN:VEVENT
-UID:585c60bfac6631c3084b1fe4b5715e8f@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260820T120000
-DTEND;TZID=Europe/Riga:20260820T150000
-SUMMARY:Tavs Auto filmēšana
-LOCATION:BKSB moto trase (Raganas Katls) un Motormuzeja aplis
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/20/11407/-/tavs-au
- to-filmesana
-END:VEVENT
-BEGIN:VEVENT
-UID:7eb781ab9d3046e7f5ed807caa57a4fc@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260820T120000
-DTEND;TZID=Europe/Riga:20260820T160000
-SUMMARY:DBS kartingu trase
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/20/10056/-/dbs-kar
- tingu-trase
-END:VEVENT
-BEGIN:VEVENT
-UID:7f851b7d4ac5cc873545732ccd380f2f@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260820T180000
-DTEND;TZID=Europe/Riga:20260820T200000
-SUMMARY:Autošesejas treniņš
-LOCATION:Moto aplis
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/20/9960/-/autosesejas
- -trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:21c815c66dae47a0779aeb41efec317b@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260821T080000
-DTEND;TZID=Europe/Riga:20260821T130000
-SUMMARY:Baltijas daudzdienu velobrauciens
-LOCATION:BKSB apvienotais aplis
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/21/10841/-/balti
- jas-daudzdienu-velobrauciens
-END:VEVENT
-BEGIN:VEVENT
-UID:a6343520cdf15ac1b607edc33eb95936@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260821T180000
-DTEND;TZID=Europe/Riga:20260821T200000
-SUMMARY:Motošosejas treniņš
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/21/10279/-/motososeja
- s-trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:d28c825ca537f6d912c1b918873eaaf9@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260824T100000
-DTEND;TZID=Europe/Riga:20260824T130000
-SUMMARY:Rīgas riteņbraukšanas skolas treniņi
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/24/11339/-/rigas
- -ritenbrauksanas-skolas-trenini
-END:VEVENT
-BEGIN:VEVENT
-UID:b8160828c2e47860522c93c3f68d6785@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260825T080000
-DTEND;TZID=Europe/Riga:20260825T100000
-SUMMARY:Automašīnu testi
-LOCATION:BKSB Kartingu trase
-DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
- ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/25/11120/-/automas
- inu-testi
-END:VEVENT
-BEGIN:VEVENT
-UID:a015c60cd14cf34dead375c1b511d652@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260825T180000
-DTEND;TZID=Europe/Riga:20260825T200000
-SUMMARY:Motošosejas treniņš
-LOCATION:BKSB Lielā moto trase
-DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/25/11193/-/motososeja
- s-trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:9bc334cb28fd7accdbaaf40896db661f@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260826T100000
-DTEND;TZID=Europe/Riga:20260826T130000
-SUMMARY:Rīgas riteņbraukšanas skolas treniņi
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/26/11340/-/rigas
- -ritenbrauksanas-skolas-trenini
-END:VEVENT
-BEGIN:VEVENT
-UID:3e19ad13868cec4a9a1c3efbb773c421@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260826T130000
-DTEND;TZID=Europe/Riga:20260826T150000
-SUMMARY:PORSCHE EXPERIENCE
-LOCATION:BKSB ovāls
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/26/10635/-/porsche-ex
- perience
-END:VEVENT
-BEGIN:VEVENT
-UID:83c9137a57c53a42ab8dc91ed1e017b9@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260826T160000
-DTEND;TZID=Europe/Riga:20260826T190000
-SUMMARY:Autošosejas treniņš
-LOCATION:BKSB Mazā auto trase (Ovāls)
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/26/11404/-/autososeja
- s-trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:db58eea1e8116b0cb7ff3f85a734ff6b@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260827T130000
-DTEND;TZID=Europe/Riga:20260827T150000
-SUMMARY:PORSCHE EXPERIENCE
-LOCATION:BKSB ovāls
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/27/11203/-/porsche-ex
- perience
-END:VEVENT
-BEGIN:VEVENT
-UID:41c05a9c6da160312bcc4c1538bac078@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260827T170000
-DTEND;TZID=Europe/Riga:20260827T210000
-SUMMARY:Autošosejas treniņš
-LOCATION:Moto aplis
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/27/9961/-/autososejas
- -trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:ae1b4c2c724d396d14db129d550c7760@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260828T090000
-DTEND;TZID=Europe/Riga:20260828T120000
-SUMMARY:Autošosejas treniņš
-LOCATION:BKSB Meža aplis
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/28/11405/-/autososeja
- s-trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:57289928c8a2f39b953b7afe099750de@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260828T120000
-DTEND;TZID=Europe/Riga:20260828T180000
-SUMMARY:Drifta treniņš (Raganas katls)
-LOCATION:BKSB mototrases meža aplis
-DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
- /2014-01-03-13-49-44/icalrepeat.detail/2026/08/28/10197/-/drifta-trenins-
- raganas-katls
-END:VEVENT
-BEGIN:VEVENT
-UID:fe1ddad4c02291c966ee9476ce2f363d@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260828T180000
-DTEND;TZID=Europe/Riga:20260828T200000
-SUMMARY:Motošosejas treniņš
-LOCATION:BKSB kartingu trase
-DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/28/10280/-/motososeja
- s-trenins
-END:VEVENT
-BEGIN:VEVENT
-UID:c3d2552cd200819f380e892379641044@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260829T080000
-DTEND;TZID=Europe/Riga:20260829T200000
-SUMMARY:"Dāvanu serviss" superauto pasākums
-LOCATION:BKSB Mazā auto trase (Ovāls)
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/29/10878/-/davanu-ser
- viss-superauto-pasakums
-END:VEVENT
-BEGIN:VEVENT
-UID:2064cf6e9f77b6edcad84e931e429e9b@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260830T080000
-DTEND;TZID=Europe/Riga:20260830T200000
-SUMMARY:"Dāvanu serviss" superauto pasākums
-LOCATION:BKSB Mazā auto trase (Ovāls)
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/30/11381/-/davanu-ser
- viss-superauto-pasakums
-END:VEVENT
-BEGIN:VEVENT
-UID:3553bed7189959cccab916fa2f7daaea@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260831T100000
-DTEND;TZID=Europe/Riga:20260831T130000
-SUMMARY:Rīgas riteņbraukšanas skolas treniņi
-LOCATION:BKSB nestandarta konfigurācija
-DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
- /index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/31/11341/-/rigas
- -ritenbrauksanas-skolas-trenini
-END:VEVENT
-BEGIN:VEVENT
-UID:8fcdceacec82ea4b9e83da96c501727f@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260831T130000
-DTEND;TZID=Europe/Riga:20260831T150000
-SUMMARY:PORSCHE EXPERIENCE
-LOCATION:BKSB ovāls
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/31/11235/-/porsche-ex
- perience
-END:VEVENT
-BEGIN:VEVENT
-UID:2672b9bce1f16b7a2a688b5f39ab4b39@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260831T160000
-DTEND;TZID=Europe/Riga:20260831T180000
-SUMMARY:PORSCHE EXPERIENCE
-LOCATION:BKSB ovāls
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/31/11236/-/porsche-ex
- perience
-END:VEVENT
-BEGIN:VEVENT
-UID:fddd8bafc3c5f9929339f3ab98165db3@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260831T180000
-DTEND;TZID=Europe/Riga:20260831T200000
-SUMMARY:Slēgts treniņš
-LOCATION:Lielais auto aplis
-DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
- x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/08/31/10721/-/slegts-tre
- nins
-END:VEVENT
-BEGIN:VEVENT
 UID:29fa32a8552a46e85ff231d10a7b5d1a@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260901T080000
 DTEND;TZID=Europe/Riga:20260901T100000
 SUMMARY:Automašīnu testi
@@ -662,7 +35,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:545e9d15b5385490270ca6ffcc20a047@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260901T180000
 DTEND;TZID=Europe/Riga:20260901T200000
 SUMMARY:Motošosejas treniņš
@@ -673,7 +46,7 @@ DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:bfbf70daf5e64fe1261e99436ad3ba0d@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260902T100000
 DTEND;TZID=Europe/Riga:20260902T200000
 SUMMARY:Rīgas Atklātais čempionāts un jaunatnes meistarsacīkstes rite
@@ -685,7 +58,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:76eef56a195b64d898c1a2363c97d3bc@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260902T100000
 DTEND;TZID=Europe/Riga:20260902T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -696,7 +69,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:8cf1ecdb1aab6ffaae6cf838138e19c9@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260903T103000
 DTEND;TZID=Europe/Riga:20260903T150000
 SUMMARY:TV Autoziņas auto filmēšana
@@ -707,7 +80,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:bf3081f4f2d24736a928bb73bdb73b3d@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260903T120000
 DTEND;TZID=Europe/Riga:20260903T160000
 SUMMARY:DBS kartingu trase
@@ -718,7 +91,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:9b2c478cedfd35aa9e171c052ce92711@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260904T080000
 DTEND;TZID=Europe/Riga:20260904T200000
 SUMMARY:"Raganas katla" drifts
@@ -729,7 +102,7 @@ DESCRIPTION:Kategorija: Drifts\, Svarigie\nPasākuma saite: https://bksb.l
 END:VEVENT
 BEGIN:VEVENT
 UID:07c77d177d32eb72658487e747835a94@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260905T080000
 DTEND;TZID=Europe/Riga:20260905T200000
 SUMMARY:"Raganas katla" drifts
@@ -740,7 +113,7 @@ DESCRIPTION:Kategorija: Drifts\, Svarigie\nPasākuma saite: https://bksb.l
 END:VEVENT
 BEGIN:VEVENT
 UID:c21a7ab3f5f030c6d26333fbe1e931cc@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260906T080000
 DTEND;TZID=Europe/Riga:20260906T200000
 SUMMARY:"Raganas katla" drifts
@@ -751,7 +124,7 @@ DESCRIPTION:Kategorija: Drifts\, Svarigie\nPasākuma saite: https://bksb.l
 END:VEVENT
 BEGIN:VEVENT
 UID:4fc8b728be5fce85e72088e533aae9b1@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260907T100000
 DTEND;TZID=Europe/Riga:20260907T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -762,7 +135,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:3accecf983094e3e47dbefe27662436b@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260907T130000
 DTEND;TZID=Europe/Riga:20260907T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -773,7 +146,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:4d75fa89e2ac7f785aff074f2bc6a4a3@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260908T080000
 DTEND;TZID=Europe/Riga:20260908T100000
 SUMMARY:Automašīnu testi
@@ -784,7 +157,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:1bd6e49557d794c156201ac12a27ae5b@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260908T180000
 DTEND;TZID=Europe/Riga:20260908T200000
 SUMMARY:Motošosejas treniņš
@@ -794,10 +167,10 @@ DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
  s-trenins
 END:VEVENT
 BEGIN:VEVENT
-UID:7d20a6da8a477557177901fb68f05900@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260909T080000
-DTEND;TZID=Europe/Riga:20260909T200000
+UID:0421dcb4743531abca61200f121d156c@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20260909T100000
+DTEND;TZID=Europe/Riga:20260909T150000
 SUMMARY:Rallijkrosa testi
 LOCATION:BKSB rallijkrosa trase
 DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
@@ -806,7 +179,7 @@ DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
 END:VEVENT
 BEGIN:VEVENT
 UID:122ad1aad5f781a5018e58a65d04758e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260909T100000
 DTEND;TZID=Europe/Riga:20260909T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -816,19 +189,19 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
  -ritenbrauksanas-skolas-trenini
 END:VEVENT
 BEGIN:VEVENT
-UID:a24ae0718686dfe1fb6e1bb3c1281383@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260910T080000
-DTEND;TZID=Europe/Riga:20260910T200000
+UID:91783459a4e32f57a474c5e7623479b2@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20260910T100000
+DTEND;TZID=Europe/Riga:20260910T150000
 SUMMARY:Rallijkrosa testi
 LOCATION:BKSB rallijkrosa trase
 DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
- .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/10/10134/-/rallijkrosa
+ .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/10/11422/-/rallijkrosa
  -testi
 END:VEVENT
 BEGIN:VEVENT
 UID:f913e8e1baa62762176e075939333990@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260911T080000
 DTEND;TZID=Europe/Riga:20260911T200000
 SUMMARY:PORSCHE EXPERIENCE
@@ -839,7 +212,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:539d3f62740937f908ad987302ce0c7a@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260912T080000
 DTEND;TZID=Europe/Riga:20260912T200000
 SUMMARY:"Lieliska Dāvana" superauto pasākums
@@ -850,7 +223,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:89bdffb648023cb74ce9c8c091341668@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260913T080000
 DTEND;TZID=Europe/Riga:20260913T200000
 SUMMARY:"Lieliska Dāvana" superauto pasākums
@@ -861,7 +234,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:b949d707393aa03ec184147b6a262f0e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260914T100000
 DTEND;TZID=Europe/Riga:20260914T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -872,7 +245,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:2c48e6302db1628e14227abab3cd7dbd@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260914T180000
 DTEND;TZID=Europe/Riga:20260914T200000
 SUMMARY:Slēgts treniņš
@@ -883,7 +256,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:dd41d44868223df09f4de1cf73d4cd73@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260915T080000
 DTEND;TZID=Europe/Riga:20260915T100000
 SUMMARY:Automašīnu testi
@@ -894,7 +267,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:e5c0c9f99881caeee0431190bcf4aaa1@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260915T180000
 DTEND;TZID=Europe/Riga:20260915T200000
 SUMMARY:Motošosejas treniņš
@@ -905,18 +278,18 @@ DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:e78026203c8db217342c1906b6b1c172@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260916T080000
 DTEND;TZID=Europe/Riga:20260916T200000
 SUMMARY:Rallijkross "Night Race"
 LOCATION:BKSB rallijkrosa trase
-DESCRIPTION:Kategorija: Svarigie\, Rallycross\nPasākuma saite: https://bk
- sb.lv/index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/16/10141/-/
- rallijkross-night-race
+DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
+ .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/16/10141/-/rallijkross
+ -night-race
 END:VEVENT
 BEGIN:VEVENT
 UID:f605d041e779a2f88e69dc7a87ce7348@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260916T100000
 DTEND;TZID=Europe/Riga:20260916T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -927,18 +300,18 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:3cd3503a0fd40d404915edca3030554b@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260917T080000
 DTEND;TZID=Europe/Riga:20260917T200000
 SUMMARY:Rallijkross "Night Race"
 LOCATION:BKSB rallijkrosa trase
-DESCRIPTION:Kategorija: Svarigie\, Rallycross\nPasākuma saite: https://bk
- sb.lv/index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/17/10142/-/
- rallijkross-night-race
+DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
+ .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/17/10142/-/rallijkross
+ -night-race
 END:VEVENT
 BEGIN:VEVENT
 UID:15f83357556f0d5e855f7703818d34d4@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260917T120000
 DTEND;TZID=Europe/Riga:20260917T160000
 SUMMARY:DBS kartingu trase
@@ -949,51 +322,51 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:39d7d4984ec3c87aebfbc02ac5bf1098@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260918T080000
 DTEND;TZID=Europe/Riga:20260918T200000
 SUMMARY:Rallijkross "Night Race"
 LOCATION:BKSB rallijkrosa trase
-DESCRIPTION:Kategorija: Svarigie\, Rallycross\nPasākuma saite: https://bk
- sb.lv/index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/18/10143/-/
- rallijkross-night-race
+DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
+ .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/18/10143/-/rallijkross
+ -night-race
 END:VEVENT
 BEGIN:VEVENT
 UID:0da81ccf7e3e788ff171fbb99c64376e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260919T080000
 DTEND;TZID=Europe/Riga:20260919T200000
 SUMMARY:Rallijkross "Night Race"
 LOCATION:BKSB rallijkrosa trase
-DESCRIPTION:Kategorija: Svarigie\, Rallycross\nPasākuma saite: https://bk
- sb.lv/index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/19/10144/-/
- rallijkross-night-race
+DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
+ .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/19/10144/-/rallijkross
+ -night-race
 END:VEVENT
 BEGIN:VEVENT
 UID:9e2f1b649a6780830d0c632bf31ffa05@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260920T080000
 DTEND;TZID=Europe/Riga:20260920T200000
 SUMMARY:Rallijkross "Night Race"
 LOCATION:BKSB rallijkrosa trase
-DESCRIPTION:Kategorija: Svarigie\, Rallycross\nPasākuma saite: https://bk
- sb.lv/index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/20/10145/-/
- rallijkross-night-race
+DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
+ .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/20/10145/-/rallijkross
+ -night-race
 END:VEVENT
 BEGIN:VEVENT
 UID:55a68323764bd9b1e61ea8601dee5e06@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260921T080000
 DTEND;TZID=Europe/Riga:20260921T200000
 SUMMARY:Rallijkross "Night Race"
 LOCATION:BKSB rallijkrosa trase
-DESCRIPTION:Kategorija: Svarigie\, Rallycross\nPasākuma saite: https://bk
- sb.lv/index.php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/21/10146/-/
- rallijkross-night-race
+DESCRIPTION:Kategorija: Rallycross\nPasākuma saite: https://bksb.lv/index
+ .php/2014-01-03-13-49-44/icalrepeat.detail/2026/09/21/10146/-/rallijkross
+ -night-race
 END:VEVENT
 BEGIN:VEVENT
 UID:3d4c8f356f4c0e1d21ff337646eae1af@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260921T100000
 DTEND;TZID=Europe/Riga:20260921T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -1004,7 +377,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:81f9cb06e9a7af6427aaf88f4c4217f0@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260922T080000
 DTEND;TZID=Europe/Riga:20260922T100000
 SUMMARY:Automašīnu testi
@@ -1015,7 +388,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:fde07c08b37536d2a94aa82fbfe002cc@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260922T180000
 DTEND;TZID=Europe/Riga:20260922T200000
 SUMMARY:Motošosejas treniņš
@@ -1026,7 +399,7 @@ DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:3ae0d88336767c05bbb7249d958052a6@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260923T100000
 DTEND;TZID=Europe/Riga:20260923T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -1037,7 +410,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:9a329fa024abbff0a8fb7e14f8f98f58@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260923T130000
 DTEND;TZID=Europe/Riga:20260923T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1048,7 +421,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:49038a980a36666ad4da3592da8d5bec@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260924T110000
 DTEND;TZID=Europe/Riga:20260924T130000
 SUMMARY:Klientu pasākums
@@ -1059,7 +432,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:60f6c5b08fd8f07b7f55d3fd5e24b7ce@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260924T130000
 DTEND;TZID=Europe/Riga:20260924T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1070,7 +443,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:f75376301a0678da2fef60c563f34ca6@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260925T130000
 DTEND;TZID=Europe/Riga:20260925T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1081,7 +454,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:8458fbf01da238305aa2e9d1c63c25d8@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260925T150000
 DTEND;TZID=Europe/Riga:20260925T210000
 SUMMARY:MANO Racing weekend
@@ -1092,7 +465,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:723c34c275e7e63a5daf27700d82e195@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260926T080000
 DTEND;TZID=Europe/Riga:20260926T200000
 SUMMARY:100 MIN RACE
@@ -1102,18 +475,8 @@ DESCRIPTION:Kategorija: Autošoseja\, Svarigie\nPasākuma saite: https://b
  100-min-race
 END:VEVENT
 BEGIN:VEVENT
-UID:19506e660d31ad300f5183940dfdca96@bikernieku-calendar
-DTSTAMP:20260831T010008Z
-DTSTART;TZID=Europe/Riga:20260927T120000
-DTEND;TZID=Europe/Riga:20260927T180000
-SUMMARY:Drifta treniņš
-LOCATION:BKSB ovāls
-DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
- /2014-01-03-13-49-44/icalrepeat.detail/2026/09/27/9925/-/drifta-trenins
-END:VEVENT
-BEGIN:VEVENT
 UID:b77db01f26dbda21067a365846704dbe@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260928T100000
 DTEND;TZID=Europe/Riga:20260928T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -1124,7 +487,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:e2ef5b3ebfd413f36f9e760524747c92@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260928T130000
 DTEND;TZID=Europe/Riga:20260928T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1135,7 +498,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:902da52a6189bb6619c3fe60937f51a2@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260928T170000
 DTEND;TZID=Europe/Riga:20260928T190000
 SUMMARY:Slēgts treniņš
@@ -1146,7 +509,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:c51f3cc9ae666d0ebf9eadea2e2dcfe0@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260929T080000
 DTEND;TZID=Europe/Riga:20260929T123000
 SUMMARY:Tavs Auto Fināla EV testi
@@ -1157,7 +520,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:9494fa53d68178033ae3398f9d588b03@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260929T080000
 DTEND;TZID=Europe/Riga:20260929T100000
 SUMMARY:Automašīnu testi
@@ -1168,7 +531,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:a1419c340c1a77a04ed70cfd42d36567@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260929T180000
 DTEND;TZID=Europe/Riga:20260929T200000
 SUMMARY:Motošosejas treniņš
@@ -1179,7 +542,7 @@ DESCRIPTION:Kategorija: Motošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:108136efb539b1dd9b984dc7d4ca2ea6@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260930T100000
 DTEND;TZID=Europe/Riga:20260930T130000
 SUMMARY:Rīgas riteņbraukšanas skolas treniņi
@@ -1190,7 +553,7 @@ DESCRIPTION:Kategorija: Riteņbraukšana\nPasākuma saite: https://bksb.lv
 END:VEVENT
 BEGIN:VEVENT
 UID:7a668f9bafac1b4a4e3c6c9671422a7d@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20260930T130000
 DTEND;TZID=Europe/Riga:20260930T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1200,8 +563,19 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
  perience
 END:VEVENT
 BEGIN:VEVENT
+UID:63346523cbe6b976454dbb3d533bd7d4@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20260930T160000
+DTEND;TZID=Europe/Riga:20260930T210000
+SUMMARY:Trases sagatavošana FIA NEZ drifta čempionātam
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
+ /2014-01-03-13-49-44/icalrepeat.detail/2026/09/30/11421/-/trases-sagatavo
+ sana-fia-nez-drifta-cempionatam
+END:VEVENT
+BEGIN:VEVENT
 UID:ce97af643bf8ecf05b250a5e73dfd384@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261001T080000
 DTEND;TZID=Europe/Riga:20261001T200000
 SUMMARY:FIA NEZ drifta čempionāts
@@ -1212,7 +586,7 @@ DESCRIPTION:Kategorija: Drifts\, Svarigie\nPasākuma saite: https://bksb.l
 END:VEVENT
 BEGIN:VEVENT
 UID:4e85c5017e70eb04b936b2711391244e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261002T080000
 DTEND;TZID=Europe/Riga:20261002T200000
 SUMMARY:FIA NEZ drifta čempionāts
@@ -1223,7 +597,7 @@ DESCRIPTION:Kategorija: Drifts\, Svarigie\nPasākuma saite: https://bksb.l
 END:VEVENT
 BEGIN:VEVENT
 UID:92224a47117359d9c45653b387b179a8@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261003T080000
 DTEND;TZID=Europe/Riga:20261003T200000
 SUMMARY:FIA NEZ drifta čempionāts
@@ -1234,7 +608,7 @@ DESCRIPTION:Kategorija: Drifts\, Svarigie\nPasākuma saite: https://bksb.l
 END:VEVENT
 BEGIN:VEVENT
 UID:7c4afa37b3cde8f87c97028f11c26b6a@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261004T080000
 DTEND;TZID=Europe/Riga:20261004T200000
 SUMMARY:FIA NEZ drifta čempionāts
@@ -1245,7 +619,7 @@ DESCRIPTION:Kategorija: Drifts\, Svarigie\nPasākuma saite: https://bksb.l
 END:VEVENT
 BEGIN:VEVENT
 UID:1bd59c34196014bed81850d80f35d387@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261005T080000
 DTEND;TZID=Europe/Riga:20261005T150000
 SUMMARY:Trases sakopšana pēc drifta sacensībām
@@ -1256,7 +630,7 @@ DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
 END:VEVENT
 BEGIN:VEVENT
 UID:2434c12653e78f28251a356c4905874e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261006T080000
 DTEND;TZID=Europe/Riga:20261006T150000
 SUMMARY:Trases mazgāšana pēc drifta sacensībām
@@ -1267,7 +641,7 @@ DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
 END:VEVENT
 BEGIN:VEVENT
 UID:5ae0fafa1ca4979ffe6785054b7e76b8@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261006T080000
 DTEND;TZID=Europe/Riga:20261006T100000
 SUMMARY:Automašīnu testi
@@ -1278,7 +652,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:ddf6e885ae0180cedcac3f99689a6f93@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261008T130000
 DTEND;TZID=Europe/Riga:20261008T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1289,7 +663,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:0725ca426dd4689b7b1d97ad5a9a9a6e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261009T130000
 DTEND;TZID=Europe/Riga:20261009T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1300,7 +674,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:c3a83d0456af29aceda21716d4692599@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261010T100000
 DTEND;TZID=Europe/Riga:20261010T170000
 SUMMARY:Sponsoru vizināšasna 2026
@@ -1311,7 +685,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:0ece873d8cba34037e6b451a582a9256@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261012T170000
 DTEND;TZID=Europe/Riga:20261012T190000
 SUMMARY:Slēgts treniņš
@@ -1322,7 +696,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:5a3869f3812ce6fdf36d64db2b3c8521@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261013T080000
 DTEND;TZID=Europe/Riga:20261013T100000
 SUMMARY:Automašīnu testi
@@ -1333,7 +707,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:cdb20891633d361bb06bf2223718dc25@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261015T130000
 DTEND;TZID=Europe/Riga:20261015T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1344,7 +718,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:064273ad936e3b8873da67acb2e0841b@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261016T130000
 DTEND;TZID=Europe/Riga:20261016T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1355,7 +729,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:7246e2c6c07072786dd847b0c4f08af3@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261017T110000
 DTEND;TZID=Europe/Riga:20261017T180000
 SUMMARY:Drift Games 2026
@@ -1365,7 +739,7 @@ DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
 END:VEVENT
 BEGIN:VEVENT
 UID:861077320f662c6f059fd8f6d8c942fa@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261019T130000
 DTEND;TZID=Europe/Riga:20261019T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1376,7 +750,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:b2c4ac60398fee7655b0a81b94ad7594@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261020T080000
 DTEND;TZID=Europe/Riga:20261020T100000
 SUMMARY:Automašīnu testi
@@ -1387,7 +761,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:8ddcc8839ea1c49360dff92af6718283@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261022T130000
 DTEND;TZID=Europe/Riga:20261022T150000
 SUMMARY:PORSCHE EXPERIENCE
@@ -1398,7 +772,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:53d8a008b9cfb796f43cc8114b502981@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261024T080000
 DTEND;TZID=Europe/Riga:20261024T200000
 SUMMARY:Autosprinta kausa posms
@@ -1409,7 +783,7 @@ DESCRIPTION:Kategorija: Autošoseja\, Svarigie\nPasākuma saite: https://b
 END:VEVENT
 BEGIN:VEVENT
 UID:2c0a92fec27fab130360b58a8e608a2a@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261027T080000
 DTEND;TZID=Europe/Riga:20261027T100000
 SUMMARY:Automašīnu testi
@@ -1420,7 +794,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:d440c5c81e3908afc2682044cafe0903@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261027T120000
 DTEND;TZID=Europe/Riga:20261027T160000
 SUMMARY:DBS kartingu trase
@@ -1431,7 +805,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:f2e2dad0d0edbaf94929bb84b6b98f6e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261028T080000
 DTEND;TZID=Europe/Riga:20261028T200000
 SUMMARY:Rallija treniņš
@@ -1442,7 +816,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:266af20fbe7ee3b75a7d280f01ad132e@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261029T120000
 DTEND;TZID=Europe/Riga:20261029T160000
 SUMMARY:DBS kartingu trase
@@ -1453,7 +827,7 @@ DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
 END:VEVENT
 BEGIN:VEVENT
 UID:dc207704bdb4e245c446fadeb7090b53@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261030T080000
 DTEND;TZID=Europe/Riga:20261030T200000
 SUMMARY:Minirallijs/rallijsprints "Latvija"
@@ -1464,7 +838,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:839d071048e5bedb9e44d3e3d3e6c5e3@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261031T080000
 DTEND;TZID=Europe/Riga:20261031T200000
 SUMMARY:Minirallijs/rallijsprints "Latvija"
@@ -1475,7 +849,7 @@ DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
 END:VEVENT
 BEGIN:VEVENT
 UID:aef97b0ff81ff9211c6446c7c509aea8@bikernieku-calendar
-DTSTAMP:20260831T010008Z
+DTSTAMP:20260901T010007Z
 DTSTART;TZID=Europe/Riga:20261031T120000
 DTEND;TZID=Europe/Riga:20261031T170000
 SUMMARY:Ziemas drifta treniņi
@@ -1483,5 +857,148 @@ LOCATION:BKSB kartingu trase
 DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
  /2014-01-03-13-49-44/icalrepeat.detail/2026/10/31/10713/-/ziemas-drifta-t
  renini
+END:VEVENT
+BEGIN:VEVENT
+UID:3dfa7411ca72debf2318f01b080fbf6b@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261101T080000
+DTEND;TZID=Europe/Riga:20261101T200000
+SUMMARY:Minirallijs/rallijsprints "Latvija"
+LOCATION:BKSB nestandarta konfigurācija
+DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
+ x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/01/11380/-/minirallij
+ s-rallijsprints-latvija
+END:VEVENT
+BEGIN:VEVENT
+UID:3ab19bb5cf666660a3d1e478074fa389@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261107T120000
+DTEND;TZID=Europe/Riga:20261107T170000
+SUMMARY:Ziemas drifta treniņi
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
+ /2014-01-03-13-49-44/icalrepeat.detail/2026/11/07/10198/-/ziemas-drifta-t
+ renini
+END:VEVENT
+BEGIN:VEVENT
+UID:1a55d5767e65b494c0d3815a51b39858@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261110T080000
+DTEND;TZID=Europe/Riga:20261110T100000
+SUMMARY:Automašīnu testi
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/10/11130/-/automas
+ inu-testi
+END:VEVENT
+BEGIN:VEVENT
+UID:280dda99b8a6ed94d414b4e5920d7032@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261110T120000
+DTEND;TZID=Europe/Riga:20261110T160000
+SUMMARY:DBS kartingu trase
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/10/10061/-/dbs-kar
+ tingu-trase
+END:VEVENT
+BEGIN:VEVENT
+UID:91dacb57fbb6bd626c3a35e525f4ea8c@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261111T120000
+DTEND;TZID=Europe/Riga:20261111T160000
+SUMMARY:DBS kartingu trase
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/11/10062/-/dbs-kar
+ tingu-trase
+END:VEVENT
+BEGIN:VEVENT
+UID:06bb110636dad576ec3ae251ac3752a5@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261112T120000
+DTEND;TZID=Europe/Riga:20261112T160000
+SUMMARY:DBS kartingu trase
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/12/10063/-/dbs-kar
+ tingu-trase
+END:VEVENT
+BEGIN:VEVENT
+UID:c534f470f5c66155ab547327d9fea11b@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261113T120000
+DTEND;TZID=Europe/Riga:20261113T160000
+SUMMARY:DBS kartingu trase
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/13/10064/-/dbs-kar
+ tingu-trase
+END:VEVENT
+BEGIN:VEVENT
+UID:50e4f5c043da0e263926643f912df613@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261114T120000
+DTEND;TZID=Europe/Riga:20261114T150000
+SUMMARY:DBS kartingu trase
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/14/10183/-/dbs-kar
+ tingu-trase
+END:VEVENT
+BEGIN:VEVENT
+UID:de756fc2641f21ecaac50cfe6fab46f5@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261117T080000
+DTEND;TZID=Europe/Riga:20261117T100000
+SUMMARY:Automašīnu testi
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/17/11131/-/automas
+ inu-testi
+END:VEVENT
+BEGIN:VEVENT
+UID:bcbd8b6a599c172f199a008aaeac3ab4@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261120T120000
+DTEND;TZID=Europe/Riga:20261120T160000
+SUMMARY:DBS kartingu trase
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/20/11392/-/dbs-kar
+ tingu-trase
+END:VEVENT
+BEGIN:VEVENT
+UID:b29a308e7b9848eb543cd14e3c74ee47@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261122T120000
+DTEND;TZID=Europe/Riga:20261122T170000
+SUMMARY:Ziemas drifta treniņi
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Drifts\nPasākuma saite: https://bksb.lv/index.php
+ /2014-01-03-13-49-44/icalrepeat.detail/2026/11/22/10199/-/ziemas-drifta-t
+ renini
+END:VEVENT
+BEGIN:VEVENT
+UID:c7441dc9ff71269f15f6624ad6182bc5@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261124T080000
+DTEND;TZID=Europe/Riga:20261124T100000
+SUMMARY:Automašīnu testi
+LOCATION:BKSB kartingu trase
+DESCRIPTION:Kategorija: Citi pasākumi\nPasākuma saite: https://bksb.lv/i
+ ndex.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/24/11132/-/automas
+ inu-testi
+END:VEVENT
+BEGIN:VEVENT
+UID:f427d059b95233a349ba46c55014ee80@bikernieku-calendar
+DTSTAMP:20260901T010007Z
+DTSTART;TZID=Europe/Riga:20261128T080000
+DTEND;TZID=Europe/Riga:20261128T200000
+SUMMARY:Autosacensības "Rīgas ziemas kauss"
+LOCATION:BKSB ziemas autotrase
+DESCRIPTION:Kategorija: Autošoseja\nPasākuma saite: https://bksb.lv/inde
+ x.php/2014-01-03-13-49-44/icalrepeat.detail/2026/11/28/10872/-/autosacens
+ ibas-rigas-ziemas-kauss
 END:VEVENT
 END:VCALENDAR
