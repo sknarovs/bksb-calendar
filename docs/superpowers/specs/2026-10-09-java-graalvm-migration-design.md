@@ -265,6 +265,9 @@ runs it before installing a downloaded binary.
 - **`graalvmNative`:**
   - `toolchainDetection = false`: `native-image` comes from `GRAALVM_HOME`, then `JAVA_HOME`.
   - `binaries.all { resources.autodetect() }` bundles the test pages into the `nativeTest` image.
+  - `binaries.all { buildArgs.add("--enable-url-protocols=https") }`: jsoup's `absUrl` resolves
+    links through `java.net.URL`, and native images lack the `https:` handler without it. A
+    spike on 2026-10-09 showed every link coming back empty without the flag.
   - `binaries.main`: `imageName = "bikernieki-calendar"` and `buildArgs.add("-march=compatibility")`.
 - **Local commands:**
   - `./gradlew test` works on the host or in the toolbox.
@@ -400,7 +403,7 @@ should happen on the same day. Python remains installed on the Pi but is unused.
 | glibc newer on the build host than on the Pi | Build in `debian:bookworm` (2.36), the oldest Debian DietPi v10 supports |
 | CPU features unsupported on Pi 3/4 (SIGILL) | `-march=compatibility`; `run.sh` runs `--test` before installing a binary |
 | 16K-page kernel on Pi 5 | Native Image assumes ≥ 64K pages by default (`SubstrateOptions.getPageSize`) |
-| jsoup, HTTPS or MD5 not working in the native image | First implementation step is a native feasibility spike in the toolbox; `nativeTest` + `--test` in CI |
+| jsoup, HTTPS or MD5 not working in the native image | Spike done on 2026-10-09: HTTPS, jsoup, MD5 and NFD work, and links need `--enable-url-protocols=https`. `nativeTest` + `--test` guard regressions |
 | Java extracts different events or UIDs than Python | Regression tests on five real pages; live comparison before cutover |
 | Push rejected or conflicting on the Pi | `git pull --rebase` before generating; abort and fail loudly on conflict |
 | GitHub unreachable on the Pi | Update step falls back to the installed binary |
