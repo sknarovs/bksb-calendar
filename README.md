@@ -33,45 +33,70 @@ https://raw.githubusercontent.com/sknarovs/bksb-calendar/main/bikernieki.ics
 
 ## How It Works
 
-1. The scraper fetches the current + next 2 months from bksb.lv
-2. Events at non-blocking locations are filtered out:
+1. A small Java program, compiled to a native binary with GraalVM, fetches the current and the next two months from bksb.lv.
+2. Events at locations that don't affect visitors are dropped:
    - `BKSB Birojs` (office)
    - `BKSB Spīdveja stadions` (speedway stadium — separate venue)
    - `BKSB "Motormuzeja līkums"` (museum circuit)
    - `BKSB lielā auto stāvvieta` (large parking lot — no track impact)
-3. The updated `bikernieki.ics` file is committed and pushed to GitHub
+3. Every day the Raspberry Pi runs `run.sh`, which regenerates `bikernieki.ics`, commits it and pushes it to GitHub
 4. Your subscribed calendar picks up the changes automatically
+
+GitHub Actions only builds the binary: it can't reach bksb.lv, so the scraping happens on the Pi.
+
+If a scrape finds no events at all while a calendar already exists (for example when bksb.lv is down), the existing file is kept and nothing is pushed.
 
 ---
 
-## Local Usage
+## Development
 
-Requires only Python 3 — no packages needed.
+The JVM build and tests need JDK 25. The native binary needs GraalVM CE 25 and a C toolchain (gcc, glibc and zlib headers); on Fedora Atomic that lives in a toolbox, with GraalVM installed through SDKMAN.
 
 ```bash
-# Run scraper once and save to file
-python3 bikernieki_calendar.py -m 3 -o bikernieki.ics
+# Run the tests (works on the host)
+./gradlew test
 
-# Run local dashboard server (http://localhost:8080)
-python3 bikernieki_calendar.py --serve --port 8080
+# Run on the JVM
+./gradlew run --args="-m 3 -o bikernieki.ics"
 
-# Run self-tests
-python3 bikernieki_calendar.py --test
+# Build the native binary and run the tests as a native image (inside the toolbox)
+toolbox enter
+export GRAALVM_HOME=$HOME/.sdkman/candidates/java/25.4.4.1+1-graalce
+./gradlew nativeCompile nativeTest
+
+# Use the native binary
+build/native/nativeCompile/bikernieki-calendar --test
+build/native/nativeCompile/bikernieki-calendar -m 3 -o bikernieki.ics
 ```
+
+---
+
+## Releasing
+
+```bash
+git tag v1.1.0
+git push origin v1.1.0
+```
+
+The GitHub Actions workflow runs the tests (on the JVM and as a native image), builds `bikernieki-calendar-linux-aarch64` in a Debian 12 container — so it runs on any DietPi based on Debian 12 or newer — and publishes it with a `.sha256` file as a GitHub release. The Pi installs it on its next run. Pushes to `main` and pull requests run the same build without publishing.
 
 ---
 
 ## Raspberry Pi Automation (DietPi)
 
-The included `update_calendar.sh` script scrapes the calendar and pushes changes to GitHub. Set it up as a daily cron job on your Pi.
+`run.sh` is the daily cron job. Each run it:
 
-### 1. Clone the repo and verify it works
+1. pulls the latest commits (`git pull --rebase`)
+2. installs the binary from the latest GitHub release into `bin/` when its checksum changed — only after the new binary passes its own `--test`; if GitHub can't be reached or the download is broken, it keeps using the installed binary
+3. regenerates `bikernieki.ics`
+4. commits and pushes it if it changed
+
+It needs a 64-bit (aarch64) OS such as DietPi v10, plus `git` and `curl`, which DietPi ships with.
+
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/sknarovs/bksb-calendar.git ~/bksb-calendar
-cd ~/bksb-calendar
-python3 bikernieki_calendar.py --test
-python3 bikernieki_calendar.py -m 3 -o bikernieki.ics
 ```
 
 ### 2. Set up Git authentication
@@ -94,16 +119,34 @@ Test it:
 git push  # should succeed without prompting for a password
 ```
 
-### 3. Add a daily cron job
+### 3. Run it once
+
+```bash
+cd ~/bksb-calendar
+./run.sh
+```
+
+The first run downloads the binary from the latest release, generates the calendar and pushes it.
+
+### 4. Add a daily cron job
 
 ```bash
 crontab -e
 ```
 
-Add this line to run every day at 07:00 Riga time (05:00 UTC):
+Add this line to run every day at 04:00 (cron uses the Pi's local time zone):
 ```
-0 5 * * * /home/username/bksb-calendar/update_calendar.sh >> /tmp/bikernieku-cron.log 2>&1
+0 4 * * * /home/username/bksb-calendar/run.sh >> /tmp/bikernieku-cron.log 2>&1
 ```
+
+### Switching from the Python version
+
+If the Pi still runs `update_calendar.sh`:
+
+1. `cd ~/bksb-calendar && git pull && ./run.sh`
+2. `crontab -e` and replace `update_calendar.sh` with `run.sh` in the existing line
+
+Python is no longer needed.
 
 ---
 
@@ -113,6 +156,7 @@ Add this line to run every day at 07:00 Riga time (05:00 UTC):
 |------|---------|-------------|
 | `-o`, `--output` | `bikernieki.ics` | Output file path |
 | `-m`, `--months` | `3` | Months to scrape (current + N-1 ahead) |
-| `-s`, `--serve` | off | Start local HTTP dashboard server |
-| `-p`, `--port` | `8080` | Server port |
-| `-t`, `--test` | off | Run self-tests and exit |
+| `-t`, `--test` | off | Run the built-in self-test and exit |
+| `-h`, `--help` | | Show help and exit |
+
+Exit codes: `0` success, `1` the scrape or the self-test failed (an existing calendar is kept), `2` invalid arguments.

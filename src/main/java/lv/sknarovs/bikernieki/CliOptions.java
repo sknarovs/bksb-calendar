@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-/** Command-line options. The flags and defaults are the ones the Python version had, minus server mode. */
+/** Command-line options. Flags and defaults are unchanged from the original tool, so existing cron lines keep working. */
 record CliOptions(Path output, int months, boolean test, boolean help) {
     static final String USAGE = "usage: bikernieki-calendar [-h] [-o OUTPUT] [-m MONTHS] [-t]";
     static final String HELP = USAGE + "\n\n" + """

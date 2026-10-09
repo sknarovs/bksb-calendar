@@ -1,6 +1,3 @@
-__pycache__/
-*.py[cod]
-*.pyo
 build/
 .gradle/
 .kotlin/
