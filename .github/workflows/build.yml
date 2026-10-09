@@ -1,0 +1,65 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths-ignore:
+      - bikernieki.ics
+      - '**/*.md'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build linux-aarch64
+    runs-on: ubuntu-24.04-arm
+    # Debian 12 links the binary against glibc 2.36, the oldest Debian that DietPi v10 supports.
+    container: debian:bookworm
+    timeout-minutes: 30
+    steps:
+      - name: Install native toolchain
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates curl git gcc libc6-dev zlib1g-dev
+      - uses: actions/checkout@v7
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '25'
+          distribution: graalvm-community
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Test and build native binary
+        run: ./gradlew test nativeTest nativeCompile
+      - name: Smoke-test native binary
+        run: build/native/nativeCompile/bikernieki-calendar --test
+      - name: Package
+        run: |
+          mkdir dist
+          cp build/native/nativeCompile/bikernieki-calendar dist/bikernieki-calendar-linux-aarch64
+          cd dist
+          sha256sum bikernieki-calendar-linux-aarch64 > bikernieki-calendar-linux-aarch64.sha256
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bikernieki-calendar-linux-aarch64
+          path: dist/
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: bikernieki-calendar-linux-aarch64
+          path: dist
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes
