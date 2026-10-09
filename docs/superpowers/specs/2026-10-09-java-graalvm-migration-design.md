@@ -1,8 +1,7 @@
 # Java + GraalVM Native Migration — Design
 
 - **Date:** 2026-10-09
-- **Status:** Revision 2, rewritten after spec review as an idiomatic Java application; awaiting
-  re-review
+- **Status:** Revision 3 (idiomatic Java, server mode removed); awaiting re-review
 - **Branch:** `java-migration` (local only until cutover)
 
 ## 1. Intent
@@ -15,8 +14,10 @@
 - The Raspberry Pi runs it from cron; `run.sh` replaces `update_calendar.sh` and is
   responsible for pushing calendar updates to the repository.
 - Otherwise it must keep working as it does now.
-- Spec review: it must be an ordinary Java application under the hood, **not a replica of the
-  Python code**. That means no Python-style string helpers, whitespace classes or parser clones.
+- Spec review, round 1: it must be an ordinary Java application under the hood, **not a
+  replica of the Python code**. That means no Python-style string helpers, whitespace classes
+  or parser clones.
+- Spec review, round 2: **server mode is dropped** (the `--serve` dashboard and feed).
 
 ### Answers gathered during design
 
@@ -45,8 +46,8 @@
    regression tests against the current script's output and a one-time live comparison. The
    `.ics` carries the same properties and values; formatting such as line-fold positions may
    differ.
-2. CLI flags, defaults, exit codes and the data-preservation guard are unchanged, and log lines
-   keep their style and content.
+2. The remaining CLI flags (`-o`, `-m`, `-t`, `-h`), their defaults, the exit codes and the
+   data-preservation guard are unchanged. Log lines keep their style and content.
 3. CI builds a `linux-aarch64` binary that runs on any DietPi v10 Pi, runs the test suite on the
    JVM and as a native image, and publishes a GitHub Release for every `v*` tag.
 4. On the Pi, `run.sh` keeps the binary current, regenerates `bikernieki.ics`, commits and pushes,
@@ -56,13 +57,13 @@
 
 ### Non-goals
 
+- Server mode: the dashboard, the `/calendar.ics` feed, and the `--serve`/`--port` flags.
 - Reproducing Python implementation details such as string and whitespace semantics,
   `html.parser` quirks, entity edge cases, or exception message wording.
 - Changing what is scraped, filtered or published. Example: DTSTAMP changes on every run, so
   the Pi commits daily even without event changes. That stays as is.
 - CI builds for x86-64, macOS or Windows; static musl binaries.
 - Running the scraper in CI.
-- Redesigning the dashboard.
 
 ## 2. Architecture
 
@@ -78,7 +79,6 @@ bikernieki.ics
 README.md, AGENTS.md, .gitignore
 docs/superpowers/specs/…
 src/main/java/lv/sknarovs/bikernieki/*.java
-src/main/resources/lv/sknarovs/bikernieki/dashboard.html
 src/test/java/lv/sknarovs/bikernieki/*Test.java
 src/test/resources/pages/{2026-07,2026-08,2026-10,2026-11,2026-12}.html
 src/test/resources/expected/{2026-07,2026-08,2026-10,2026-11,2026-12}.tsv, README.md
@@ -91,22 +91,20 @@ Removed: `bikernieki_calendar.py`, `update_calendar.sh`.
 - **Package:** `lv.sknarovs.bikernieki`.
 - **Runtime dependency:** **jsoup 1.23.2**, used for HTML parsing and entity decoding. Its entity
   data is compiled into classes, so no native-image resource configuration is needed.
-- **Everything else is the JDK:** `java.net.http`, `java.time`, `com.sun.net.httpserver`,
+- **Everything else is the JDK:** `java.net.http`, `java.time`, `java.nio.file`,
   `java.security.MessageDigest`.
 
 | Class | Responsibility |
 |---|---|
-| `Main` | Install UTF-8 stdout, parse options, dispatch to self-test / server / one-shot scrape, set the exit code |
-| `CliOptions` | Record plus parser for `-o -m -s -p -t -h` |
+| `Main` | Install UTF-8 stdout, parse options, run the self-test or the update, set the exit code |
+| `CliOptions` | Record plus parser for `-o -m -t -h` |
 | `CalendarEvent` | Record: `uid`, `start`/`end` (`LocalDateTime`), `summary`, `category`, `location`, `url` |
 | `EventParser` | Month page (jsoup `Document`) → `List<CalendarEvent>` using the rules in §3.2 |
 | `MonthSource` | Interface: `Optional<String> fetch(YearMonth month)` |
 | `BksbClient` | `MonthSource` over `java.net.http.HttpClient` with timeouts and retry |
 | `CalendarScraper` | Target months from a `Clock`, fetch + parse each, pacing, dedupe, sort |
 | `IcsWriter` | Events → RFC 5545 calendar text |
-| `IcsReader` | Minimal reader that lists events from an existing `.ics` for the dashboard |
-| `CalendarCache` | In-memory state, refresh lock, data-preservation guard, atomic file write |
-| `DashboardServer` | JDK `HttpServer` routes and the dashboard page (`dashboard.html` template) |
+| `CalendarUpdater` | One update run: scrape, apply the data-preservation guard, write the file atomically, log the outcome |
 | `SelfTest` | `--test` smoke test, also used by CI and `run.sh` on the native binary |
 
 Test seams: `Clock` (today and DTSTAMP), `MonthSource` (no network in tests), and
@@ -114,12 +112,9 @@ constructor-supplied timeouts, backoff and pacing durations (zero in tests).
 
 ### 2.3 Data flow
 
-- **One-shot (cron) mode:** `Main` → `CalendarCache.loadFromDisk()` → `refresh()` →
-  `CalendarScraper.scrape()` → per month `BksbClient.fetch` → `EventParser.parse` → dedupe + sort
-  → `IcsWriter.write` → atomic file write → exit 0, or exit 1 on failure or guard.
-- **Server mode:** `Main` → `loadFromDisk()` (initial `refresh()` if no file) →
-  `DashboardServer.start(port)`; `/calendar.ics` serves the cached bytes and triggers a
-  background refresh when stale.
+`Main` → `CalendarUpdater.run()` → `CalendarScraper.scrape()` → per month `BksbClient.fetch` →
+`EventParser.parse` → dedupe + sort → guard → `IcsWriter.write` → atomic file write → exit 0, or
+exit 1 on failure or guard.
 
 ## 3. Functional behavior
 
@@ -197,44 +192,35 @@ Properties appear in the same order as in today's file.
 - **Format:** RFC 5545 text escaping (backslash, `;`, `,`, line breaks → `\n`) and line folding
   at 75 octets without splitting UTF-8 characters; CRLF line endings; UTF-8.
 
-### 3.5 File writing and the data-preservation guard (`CalendarCache`)
+### 3.5 Update run, guard and file writing (`CalendarUpdater`)
 
-- If a scrape yields 0 events while the output file exists and is larger than 500 bytes, keep
-  the file, log it, and fail (exit 1). This is unchanged.
-- Otherwise write a temporary file in the same directory and atomically move it over the target.
-  A crash can never leave a truncated calendar for `run.sh` to commit.
+1. Log `[*] Starting CLI scrape: lookahead = <m> months, saving to <path>...` and scrape.
+2. **Guard:** if the scrape yields 0 events while the output file exists and is larger than
+   500 bytes, log `[!] Scrape returned 0 events. Preserving existing calendar file.` and fail.
+   This is unchanged.
+3. Otherwise write a temporary file in the same directory and atomically move it over the
+   target. A crash can never leave a truncated calendar for `run.sh` to commit.
+4. Log the event count and `[+] Completed! Calendar written to <path>`.
+
+Any unexpected error is logged as `[!] Scraper refresh failed: <error>`, followed by
+`[!] Scrape execution failed.`, and fails the run.
 
 ### 3.6 Command line (`CliOptions`, `Main`)
 
-- **Flags** (same names and defaults):
+- **Flags** (same names and defaults as today, minus the server flags):
   - `-o/--output` (default `bikernieki.ics`).
   - `-m/--months` (default `3`).
-  - `-s/--serve`.
-  - `-p/--port` (default `8080`).
   - `-t/--test`.
   - `-h/--help`.
-- **Exit codes:** 0 for success, 1 for a failed scrape (or the guard) or a failed self-test,
-  and 2 for usage errors, which print usage to stderr.
+- **Exit codes:**
+  - 0 for success.
+  - 1 for a failed scrape (or the guard) or a failed self-test.
+  - 2 for usage errors, including the removed `--serve`/`--port`. Usage is printed to stderr.
 - **Logs:** stdout, encoded as UTF-8 regardless of locale, so cron logs show Latvian text
   correctly. They keep the existing `[*]`, `[+]`, `[!]` and `[-]` style and content: fetch URLs,
   failed attempts, exclusions, event counts, guard and completion messages.
 
-### 3.7 Server mode (`DashboardServer`)
-
-- **Startup:** loads the existing calendar file. If there is none, it scrapes first. Logs the
-  dashboard and subscription URLs.
-
-| Path | Behavior |
-|---|---|
-| `/calendar.ics` | 200 with the calendar bytes and the same headers as today: `Content-Type: text/calendar; charset=utf-8`, `Content-Disposition: attachment; filename=bikernieki.ics`, `Access-Control-Allow-Origin: *`. If the data is older than 12 h, starts a background refresh (at most one at a time). |
-| `/`, `/index.html` | The same dashboard page (status, subscription link, event count, last-update time, event table). |
-| `/refresh` | Refreshes synchronously, then redirects (303) to `/`. |
-| anything else | 404. |
-
-- After a refresh the dashboard lists events from memory; otherwise it lists them from the file
-  on disk via `IcsReader`.
-
-### 3.8 Self-test (`--test`)
+### 3.7 Self-test (`--test`)
 
 `SelfTest` parses an embedded sample of bksb.lv markup (the snippet the Python self-test uses)
 and checks:
@@ -247,8 +233,11 @@ and checks:
 It prints a pass or fail line and exits 0 or 1. CI runs it on the native binary, and `run.sh`
 runs it before installing a downloaded binary.
 
-### 3.9 Accepted differences from the Python version
+### 3.8 Accepted differences from the Python version
 
+- `--serve` and `--port` are removed, together with the dashboard and the `/calendar.ics` feed.
+  The two disk-cache log lines that Python printed at startup (`Found existing calendar file`,
+  `Loaded N events`) go with them.
 - Long lines fold at the RFC limit of 75 octets instead of 74. The first Java-generated commit
   reflows some lines, but calendar apps see identical data.
 - Diacritics are stripped generically (NFD) rather than with a fixed Latvian letter map. This
@@ -257,13 +246,6 @@ runs it before installing a downloaded binary.
   verbatim. They don't occur in published data.
 - Entity decoding and trimming follow jsoup and Java rules. Results differ only for unusual
   input, such as non-breaking spaces at title edges.
-- Server mode:
-  - serves the file's bytes unchanged (Python converted CRLF to LF);
-  - shows full titles of long events;
-  - runs only one background refresh at a time;
-  - keeps the dashboard list when the guard blocks a refresh;
-  - ignores query strings in routes;
-  - answers non-GET requests with 405.
 - Malformed markup, such as attributes without values, no longer aborts the whole scrape.
 
 ## 4. Build (Gradle)
@@ -282,7 +264,7 @@ runs it before installing a downloaded binary.
   - `tasks.test { useJUnitPlatform() }`.
 - **`graalvmNative`:**
   - `toolchainDetection = false`: `native-image` comes from `GRAALVM_HOME`, then `JAVA_HOME`.
-  - `binaries.all { resources.autodetect() }` bundles the dashboard template and the test pages.
+  - `binaries.all { resources.autodetect() }` bundles the test pages into the `nativeTest` image.
   - `binaries.main`: `imageName = "bikernieki-calendar"` and `buildArgs.add("-march=compatibility")`.
 - **Local commands:**
   - `./gradlew test` works on the host or in the toolbox.
@@ -373,10 +355,10 @@ Cron line (README): `0 4 * * * /home/<user>/bksb-calendar/run.sh >> /tmp/bikerni
   - Excluded-location variants and the missing-location default.
   - An entity-encoded tooltip.
   - ICS escaping, folding with multibyte characters at the boundary, and document structure.
-  - The guard and atomic write, and an `IcsReader` round trip.
-  - CLI parsing and exit codes.
-  - `BksbClient` against a local `HttpServer`: success, 5xx then success, and timeout.
-  - `DashboardServer` routes on an ephemeral port with a stub `MonthSource`.
+  - `CalendarUpdater`: the guard, atomic write, and the failure paths.
+  - CLI parsing and exit codes, including rejection of `--serve`.
+  - `BksbClient` against a local JDK `HttpServer` (test-only): success, 5xx then success, and
+    timeout.
   - `SelfTest` passes.
   - Tests never touch the network.
 - **Native:** CI runs the full JUnit suite as an aarch64 native image (`nativeTest`) plus
@@ -391,12 +373,12 @@ Cron line (README): `0 4 * * * /home/<user>/bksb-calendar/run.sh >> /tmp/bikerni
   `.idea/`, `*.iml`.
 - **README:**
   - Local build in the toolbox, the JVM run, and the native binary usage.
-  - The CLI reference (unchanged flags).
+  - The CLI reference (without `--serve`/`--port`).
   - Releasing (tag push).
   - Pi setup with `run.sh`: SSH deploy key as today, first run, crontab line.
   - The subscription URLs stay.
-- **AGENTS.md:** rewritten for the Java layout and commands. It drops the stale buffer and test
-  claims and keeps the data-guard and UID notes.
+- **AGENTS.md:** rewritten for the Java layout and commands. It drops the HTTP server section
+  and the stale buffer and test claims, and keeps the data-guard and UID notes.
 
 ## 9. Rollout (cutover)
 
@@ -404,7 +386,7 @@ Cron line (README): `0 4 * * * /home/<user>/bksb-calendar/run.sh >> /tmp/bikerni
    Pi's latest calendar commits, then push.
 2. Tag and push `v1.0.0`, and wait for the `release` job.
 3. On the Pi: `cd ~/bksb-calendar && git pull && ./run.sh`. This first run downloads the binary,
-   generates the calendar and pushes it. The resulting commit reflows folded lines (§3.9), but
+   generates the calendar and pushes it. The resulting commit reflows folded lines (§3.8), but
    the events and UIDs are unchanged.
 4. `crontab -e`: replace `update_calendar.sh` with `run.sh`.
 
@@ -418,7 +400,7 @@ should happen on the same day. Python remains installed on the Pi but is unused.
 | glibc newer on the build host than on the Pi | Build in `debian:bookworm` (2.36), the oldest Debian DietPi v10 supports |
 | CPU features unsupported on Pi 3/4 (SIGILL) | `-march=compatibility`; `run.sh` runs `--test` before installing a binary |
 | 16K-page kernel on Pi 5 | Native Image assumes ≥ 64K pages by default (`SubstrateOptions.getPageSize`) |
-| jsoup, HTTPS, MD5, `HttpServer` or the dashboard resource missing from the native image | First implementation step is a native feasibility spike in the toolbox; `nativeTest` + `--test` in CI |
+| jsoup, HTTPS or MD5 not working in the native image | First implementation step is a native feasibility spike in the toolbox; `nativeTest` + `--test` in CI |
 | Java extracts different events or UIDs than Python | Regression tests on five real pages; live comparison before cutover |
 | Push rejected or conflicting on the Pi | `git pull --rebase` before generating; abort and fail loudly on conflict |
 | GitHub unreachable on the Pi | Update step falls back to the installed binary |
