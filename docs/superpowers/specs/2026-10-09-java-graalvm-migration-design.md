@@ -311,7 +311,7 @@ so replacing `run.sh` during `git pull` cannot affect the running copy.
 
 1. `cd` to the script's directory.
 2. **Sync:**
-   - `git checkout -- bikernieki.ics` (the file is regenerated, so this drops leftovers from an
+   - `git checkout HEAD -- bikernieki.ics` (the file is regenerated, so this drops staged and unstaged leftovers from an
      interrupted run).
    - `git pull --rebase --quiet`. On failure, run `git rebase --abort` (ignoring errors), log
      `[!] git pull failed; resolve manually.` and exit 1.

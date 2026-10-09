@@ -1144,7 +1144,7 @@ ASSET="bikernieki-calendar-linux-$(uname -m)"
 BIN="bin/bikernieki-calendar"
 
 sync_repo() {
-    git checkout -- bikernieki.ics
+    git checkout HEAD -- bikernieki.ics
     if ! git pull --rebase --quiet; then
         git rebase --abort 2>/dev/null || true
         echo "[!] git pull failed; resolve manually."
