@@ -1,7 +1,8 @@
 # Java + GraalVM Native Migration — Design
 
 - **Date:** 2026-10-09
-- **Status:** Approved in chat (sections 1–3); awaiting written-spec review
+- **Status:** Revision 2, rewritten after spec review as an idiomatic Java application; awaiting
+  re-review
 - **Branch:** `java-migration` (local only until cutover)
 
 ## 1. Intent
@@ -13,7 +14,9 @@
 - GitHub Actions builds the native binaries.
 - The Raspberry Pi runs it from cron; `run.sh` replaces `update_calendar.sh` and is
   responsible for pushing calendar updates to the repository.
-- Otherwise it must behave the same as now.
+- Otherwise it must keep working as it does now.
+- Spec review: it must be an ordinary Java application under the hood, **not a replica of the
+  Python code**. That means no Python-style string helpers, whitespace classes or parser clones.
 
 ### Answers gathered during design
 
@@ -28,7 +31,7 @@
 - GitHub Actions cannot reach `bksb.lv` (commit `a17244a` removed the old Actions workflow for
   that reason). CI can only **build and test**; scraping stays on the Pi.
 - The 40-minute event buffer described in `AGENTS.md` no longer exists (removed in `a4066c1`);
-  the Python code emits raw event times. The port follows the code, not the stale doc.
+  events carry the times shown on bksb.lv.
 - Fully static (musl) native images are documented for Linux x64 only, so the aarch64 binary
   links against glibc and must be built against a glibc no newer than the Pi's.
 - GraalVM defaults to `-march=armv8.1-a` on AArch64; Raspberry Pi 3/4 cores are ARMv8.0.
@@ -37,10 +40,13 @@
 
 ### Success criteria
 
-1. For the same input HTML, the Java version produces a byte-identical `.ics` (DTSTAMP aside)
-   with identical UIDs, proven by golden tests generated from the current Python code and a
-   one-time live side-by-side diff.
-2. CLI flags, defaults, log lines and exit codes are unchanged.
+1. On real bksb.lv pages the Java version produces the same events as the Python version:
+   same dates, times, summaries, categories, locations, links and **UIDs**. This is proven by
+   regression tests against the current script's output and a one-time live comparison. The
+   `.ics` carries the same properties and values; formatting such as line-fold positions may
+   differ.
+2. CLI flags, defaults, exit codes and the data-preservation guard are unchanged, and log lines
+   keep their style and content.
 3. CI builds a `linux-aarch64` binary that runs on any DietPi v10 Pi, runs the test suite on the
    JVM and as a native image, and publishes a GitHub Release for every `v*` tag.
 4. On the Pi, `run.sh` keeps the binary current, regenerates `bikernieki.ics`, commits and pushes,
@@ -50,7 +56,9 @@
 
 ### Non-goals
 
-- Any change to scraping, filtering or ICS semantics. Example: DTSTAMP changes on every run, so
+- Reproducing Python implementation details such as string and whitespace semantics,
+  `html.parser` quirks, entity edge cases, or exception message wording.
+- Changing what is scraped, filtered or published. Example: DTSTAMP changes on every run, so
   the Pi commits daily even without event changes. That stays as is.
 - CI builds for x86-64, macOS or Windows; static musl binaries.
 - Running the scraper in CI.
@@ -70,261 +78,193 @@ bikernieki.ics
 README.md, AGENTS.md, .gitignore
 docs/superpowers/specs/…
 src/main/java/lv/sknarovs/bikernieki/*.java
-src/main/resources/lv/sknarovs/bikernieki/{html5-entities.tsv, dashboard.html}
+src/main/resources/lv/sknarovs/bikernieki/dashboard.html
 src/test/java/lv/sknarovs/bikernieki/*Test.java
-src/test/resources/golden/{*.html, *.ics, README.md}
+src/test/resources/pages/{2026-07,2026-08,2026-10,2026-11,2026-12}.html
+src/test/resources/expected/{2026-07,2026-08,2026-10,2026-11,2026-12}.tsv, README.md
 ```
 
 Removed: `bikernieki_calendar.py`, `update_calendar.sh`.
 
 ### 2.2 Components
 
-Package `lv.sknarovs.bikernieki`. Runtime dependencies: the JDK only.
+- **Package:** `lv.sknarovs.bikernieki`.
+- **Runtime dependency:** **jsoup 1.23.2**, used for HTML parsing and entity decoding. Its entity
+  data is compiled into classes, so no native-image resource configuration is needed.
+- **Everything else is the JDK:** `java.net.http`, `java.time`, `com.sun.net.httpserver`,
+  `java.security.MessageDigest`.
 
-| Class | Responsibility | Depends on | Python origin |
-|---|---|---|---|
-| `Main` | Install UTF-8 stdout, parse options, dispatch to self-test / server / one-shot scrape, set exit code | all below | `main()` |
-| `CliOptions` | Parse `-o -m -s -p -t -h` into a record | — | `argparse` setup |
-| `PyText` | Python string semantics: whitespace set, `strip`, `split`/join, regex compile helper | — | (implicit) |
-| `HtmlText` | `unescape` (Python `html.unescape`) and `escape` (Python `html.escape`) | `html5-entities.tsv` | `html` module |
-| `HtmlScanner` | Tokenize HTML and emit raw title anchors `(titleText, href, tooltip)` | `HtmlText` | `JEventsHTMLParser` |
-| `CalendarEvent` | Record: `startDate, startTime, endDate, endTime, summary, category, location, url, uid` (all `String`) | — | event dict |
-| `EventParser` | Raw anchors → `CalendarEvent`s: date, times, category/location, exclusion, midnight crossing, URL, UID | `HtmlScanner`, `PyText` | parsing half of `fetch_and_scrape_month`, helpers |
-| `MonthSource` | Interface: `Optional<String> fetchMonth(int year, int month)` | — | — |
-| `BksbClient` | `MonthSource` over HTTP with timeout/retry/backoff | JDK `HttpClient` | fetch half of `fetch_and_scrape_month` |
-| `CalendarScraper` | Target months from a `Clock`, fetch + parse each, pacing, dedupe, sort | `MonthSource`, `EventParser` | `get_target_months`, `scrape_full_calendar` |
-| `IcsWriter` | Text escaping, 74-octet folding, VCALENDAR assembly | — | `escape_ics_text`, `fold_ics_line`, `build_ics_file` |
-| `CalendarCache` | Load from disk, refresh under a lock, zero-event guard, atomic file write, dashboard event list | `CalendarScraper`, `IcsWriter` | `CalendarCache` |
-| `DashboardServer` | JDK `HttpServer` routes and dashboard rendering | `CalendarCache`, `dashboard.html` | `CalendarHTTPRequestHandler` |
-| `SelfTest` | `--test` assertions; doubles as the native-binary smoke test | parser classes | `run_unit_tests` |
+| Class | Responsibility |
+|---|---|
+| `Main` | Install UTF-8 stdout, parse options, dispatch to self-test / server / one-shot scrape, set the exit code |
+| `CliOptions` | Record plus parser for `-o -m -s -p -t -h` |
+| `CalendarEvent` | Record: `uid`, `start`/`end` (`LocalDateTime`), `summary`, `category`, `location`, `url` |
+| `EventParser` | Month page (jsoup `Document`) → `List<CalendarEvent>` using the rules in §3.2 |
+| `MonthSource` | Interface: `Optional<String> fetch(YearMonth month)` |
+| `BksbClient` | `MonthSource` over `java.net.http.HttpClient` with timeouts and retry |
+| `CalendarScraper` | Target months from a `Clock`, fetch + parse each, pacing, dedupe, sort |
+| `IcsWriter` | Events → RFC 5545 calendar text |
+| `IcsReader` | Minimal reader that lists events from an existing `.ics` for the dashboard |
+| `CalendarCache` | In-memory state, refresh lock, data-preservation guard, atomic file write |
+| `DashboardServer` | JDK `HttpServer` routes and the dashboard page (`dashboard.html` template) |
+| `SelfTest` | `--test` smoke test, also used by CI and `run.sh` on the native binary |
 
-Seams for testing: `Clock` (today and DTSTAMP), `MonthSource` (no network in tests), and
+Test seams: `Clock` (today and DTSTAMP), `MonthSource` (no network in tests), and
 constructor-supplied timeouts, backoff and pacing durations (zero in tests).
 
 ### 2.3 Data flow
 
 - **One-shot (cron) mode:** `Main` → `CalendarCache.loadFromDisk()` → `refresh()` →
-  `CalendarScraper.scrape(months)` → per month `BksbClient.fetchMonth` → `EventParser.parse`
-  → dedupe + sort → `IcsWriter.build` → atomic write → exit 0, or exit 1 on failure or guard.
-- **Server mode:** `Main` → `loadFromDisk()` (initial `refresh()` if nothing is cached) →
+  `CalendarScraper.scrape()` → per month `BksbClient.fetch` → `EventParser.parse` → dedupe + sort
+  → `IcsWriter.write` → atomic file write → exit 0, or exit 1 on failure or guard.
+- **Server mode:** `Main` → `loadFromDisk()` (initial `refresh()` if no file) →
   `DashboardServer.start(port)`; `/calendar.ics` serves the cached bytes and triggers a
   background refresh when stale.
 
-## 3. Behavior parity specification
+## 3. Functional behavior
 
-The Python implementation at commit `ff57ef7` is the reference. Rules below are normative.
+The Python script at commit `ff57ef7` defines *what* the application does. The Java code does it
+the Java way: jsoup, `java.time`, `String.strip()` and plain regular expressions.
 
-### 3.1 Python text semantics (`PyText`)
+### 3.1 Fetching (`BksbClient`, `CalendarScraper`)
 
-- **Whitespace** is Python's `str.isspace()` set (29 code points): `U+0009–U+000D`,
-  `U+001C–U+001F`, `U+0020`, `U+0085`, `U+00A0`, `U+1680`, `U+2000–U+200A`, `U+2028`,
-  `U+2029`, `U+202F`, `U+205F`, `U+3000`. Java's `String.strip()` and default `\s` differ, so
-  they are not used.
-- `strip()` and `split()`/`" ".join(...)` use that set.
-- **Regexes** are compiled with `UNICODE_CHARACTER_CLASS | UNIX_LINES`. Every `\s` is written as
-  `[\s\x1c-\x1f]` (Unicode White_Space plus the four separators Python adds). With these flags,
-  `\d` is Unicode `Nd`, `.` excludes only `\n`, and `$` matches at the end or before a final `\n`,
-  as in Python. `re.match` maps to `^` + `find()`, `re.search` maps to `find()`.
-- **Lowercasing** uses `toLowerCase(Locale.ROOT)`; number formatting uses `Locale.ROOT`.
+- **Target months:** the current month (system time zone) plus the next `months - 1`.
+- **Request:**
+  - URL: `https://bksb.lv/index.php/2014-01-03-13-49-44/month.calendar/{yyyy}/{MM}/01/-`.
+  - The existing browser `User-Agent`; redirects followed.
+  - Timeouts: 20 s connect, 20 s for the response, and a 60 s cap per attempt.
+- **Retries:** 2 attempts, 2 s apart. A non-2xx status, I/O error or timeout counts as a failed
+  attempt.
+- **Failed months:** a month whose attempts all fail is logged and contributes no events; the
+  other months still count, as today.
+- **Pacing:** 0.5 s pause after each month.
 
-### 3.2 HTML scanning (`HtmlScanner`)
+### 3.2 Event extraction (`EventParser`)
 
-Mirrors CPython 3.14 `html.parser.HTMLParser` (the version used to generate the goldens) for:
+The page is parsed with jsoup using the page URL as base URI. For every `a.cal_titlelink`:
 
-- **Start tags:** name lowercased; attributes with lowercased names; values double-quoted,
-  single-quoted or unquoted. Values are passed through `HtmlText.unescape`. The last duplicate
-  wins. A self-closing tag (`<a …/>`) is a start tag followed by an end tag.
-- **End tags:** name lowercased.
-- **Comments** (`<!-- … -->`, including `--!>` endings), declarations (`<!DOCTYPE …>`, `<!…>`),
-  CDATA sections and processing instructions (`<?…>`) are skipped.
-- **Raw-text elements** `script, style, xmp, iframe, noembed, noframes` and escapable-raw-text
-  elements `textarea, title`: their content runs to the matching end tag and is never scanned
-  for tags.
-- **Text** between tags is passed through `HtmlText.unescape` (Python's `convert_charrefs=True`).
-- A `<` that does not start a valid construct is literal text.
+1. **Date:** taken from `icalrepeat.detail/yyyy/MM/dd` in the link's `href`. A link without a
+   valid date is skipped.
+2. **Title:** the link's whole text, trimmed. Internal whitespace is kept, since the title feeds
+   the UID.
+3. **Category and location:** read from the `title` attribute of the enclosing
+   `span.editlinktip` (the tooltip markup). Each is the text after `Kategorija:` / `Kur:` up to
+   the next tag, entity-decoded with `Parser.unescapeEntities` and trimmed. A missing label
+   gives an empty string.
+4. **Times and summary:**
 
-The extraction state machine is identical to `JEventsHTMLParser`:
+   | Title format | Times | Summary |
+   |---|---|---|
+   | `HH:mm-HH:mm Summary` | as given | `Summary` |
+   | `HH:mm Summary` | one hour from start | `Summary` |
+   | anything else, or an invalid time | all day, 00:00–23:59 | the whole title |
 
-- `<span>` whose `class` contains `editlinktip` → `tooltip = title` attribute (or `""`).
-- `<a>` whose `class` contains `cal_titlelink` → `inTitle = true`, `href = href` attribute
-  (or `""`), `title = ""`.
-- Text while `inTitle` → appended to `title`.
-- `</a>` while `inTitle` → emit `(PyText.strip(title), href, tooltip)`, then reset `inTitle`,
-  `href` and `tooltip`.
+   If the end is not after the start, the end moves to the next day. This covers `08:00-00:00`,
+   overnight ranges, and one-hour events starting at 23:xx.
+5. **Exclusion:** the location is normalized: lowercase, quotes removed, diacritics stripped via
+   Unicode NFD, whitespace collapsed. It is skipped with the log line
+   `[-] Excluding event due to location '<location>': <summary>` when it equals one of:
+   `bksb birojs`, `bksb spidveja stadions`, `bksb motormuzeja likums`,
+   `bksb liela auto stavvieta`.
+6. **Link:** `href` resolved against the page URL (`absUrl`).
+7. **Location shown:** the location, or `Bikernieku Trase` when empty.
+8. **UID:** MD5 hex of
+   `<start date>|<start HH:mm>|<end date>|<end HH:mm>|<title>|<location>`, followed by
+   `@bikernieku-calendar`.
+   - Dates are ISO `yyyy-MM-dd`; the title is the one from step 2; the location is the raw
+     value, possibly empty, *before* the default above.
+   - **This formula is a compatibility contract.** Keeping it means existing calendar
+     subscriptions see the same events instead of deletions and re-additions.
 
-### 3.3 Entities (`HtmlText`)
+### 3.3 Aggregation
 
-- `unescape` implements Python's algorithm exactly:
-  - Pattern: `&(#[0-9]+;?|#[xX][0-9a-fA-F]+;?|[^\t\n\f <&#;]{1,32};?)`.
-  - Numeric references: first Python's 34-entry `_invalid_charrefs` remap; then surrogates or
-    values above `0x10FFFF` become `U+FFFD` (arbitrarily long digit strings included); then
-    Python's 126-entry `_invalid_codepoints` become `""`.
-  - Named references: exact match in the HTML5 table; otherwise the longest prefix of at least
-    2 chars that is in the table, plus the remainder; otherwise the literal text.
-- `html5-entities.tsv` is generated once from Python's `html.entities.html5`: 2,231 names,
-  including 106 legacy names without `;`. Each line is `name<TAB>hex code points separated by
-  spaces`. The two numeric tables are Java constants copied from CPython.
-- `escape` matches `html.escape(s, quote=True)`: `&`→`&amp;` first, then `<`, `>`, `"`→`&quot;`,
-  `'`→`&#x27;`.
+Events are deduplicated by UID (first occurrence wins), then stable-sorted by start.
 
-### 3.4 Event extraction (`EventParser`)
+### 3.4 Calendar output (`IcsWriter`)
 
-For each raw anchor, in document order:
+Properties appear in the same order as in today's file.
 
-1. **Date:** `icalrepeat\.detail/(\d{4})/(\d{2})/(\d{2})` searched in `href`. No match → skip.
-   `date = y-m-d`.
-2. **Times and summary** from `titleText`:
-   - `^(\d{2}:\d{2})-(\d{2}:\d{2})\s+(.*)$` → start, end, summary.
-   - else `^(\d{2}:\d{2})\s+(.*)$` → start, end = `(h+1)%24` and the same minutes, formatted
-     `%02d:%02d`, summary.
-   - else `00:00`, `23:59`, `summary = titleText`.
-3. **Category and location:** `tooltip` is unescaped **again**, a deliberate second pass that
-   Python performs. `Kategorija:\s*([^<]+)` and `Kur:\s*([^<]+)` are each stripped, then have
-   `<[^>]+>` removed, then are stripped again; a missing match gives `""`.
-4. **Exclusion:** `normalize(location)` is exactly one of `bksb birojs`,
-   `bksb spidveja stadions`, `bksb motormuzeja likums`, `bksb liela auto stavvieta` → log
-   `[-] Excluding event due to location '<location>': <summary>` and skip. `normalize`:
-   - lowercase;
-   - remove `" ' “ ” « »`;
-   - map `ā ē ī ū ō ķ ļ ņ ģ š ž` → `a e i u o k l n g s z` (no other letters, e.g. `č` stays);
-   - collapse whitespace.
-5. **Midnight crossing:** if `endTime <= startTime` (string comparison), parse both as
-   `yyyy-MM-dd HH:mm`. If the end is not after the start, `endDate = date + 1 day`. Any parse
-   failure leaves `endDate = date`.
-6. **URL:** `"https://bksb.lv" + href` if `href` starts with `/`, else `href`.
-7. **UID:** lowercase hex MD5 of the UTF-8 bytes of
-   `date|startTime|endDate|endTime|titleText|location`, plus `@bikernieku-calendar`. This uses
-   the raw `titleText` and the raw (possibly empty) `location`.
-8. **Location field:** `location`, or `Bikernieku Trase` when empty.
-
-### 3.5 Fetching (`BksbClient`)
-
-- **URL:** `https://bksb.lv/index.php/2014-01-03-13-49-44/month.calendar/{year}/{MM}/01/-`. Log
-  `[*] Fetching calendar: <url>`.
-- **Request:** `User-Agent` set to the existing Chrome 120 string; HTTP/1.1, as urllib uses;
-  normal redirects followed; 20 s connect timeout and 20 s request (response) timeout. Each
-  attempt is also capped at 60 s in total, so a stalled body can't hang the cron job. Python's
-  per-read socket timeout had no overall cap.
-- **Retries:** 2 attempts with 2 s between them. Each failure logs
-  `[!] Attempt <n>/2 failed for <year>/<MM>: <error>`. A non-2xx status, I/O error, timeout or
-  **malformed UTF-8** (strict decoder, matching `bytes.decode('utf-8')`) counts as a failure.
-- **After both attempts fail:** log `[!] Error loading calendar for <year>/<MM> after retries:
-  <error>` and contribute no events for that month.
-- Exception message texts differ from Python's; everything else in these lines is identical.
-
-### 3.6 Aggregation (`CalendarScraper`)
-
-- **Months:** the current month from `LocalDate.now(clock)` (system time zone), plus the next
-  `months - 1` months with year rollover. `months <= 0` gives no months.
-- After each month, including the last, sleep 0.5 s.
-- **Dedupe** by UID, keeping the first occurrence. Then a **stable** sort by
-  `(startDate, startTime)` as strings.
-
-### 3.7 ICS output (`IcsWriter`)
-
-The output is byte-identical to `build_ics_file`:
-
-- **Header** lines `BEGIN:VCALENDAR`, `VERSION:2.0`, `PRODID:-//Bikernieku Calendar//EN`,
-  `CALSCALE:GREGORIAN`, `METHOD:PUBLISH`, `X-WR-CALNAME:Biķernieku Trases Kalendārs`,
-  `X-WR-TIMEZONE:Europe/Riga`, followed by the existing Europe/Riga `VTIMEZONE` block verbatim.
-- **DTSTAMP:** a single UTC timestamp `yyyyMMdd'T'HHmmss'Z'` from the clock, shared by all events.
+- **Calendar header:** `VERSION:2.0`, `PRODID:-//Bikernieku Calendar//EN`, `CALSCALE:GREGORIAN`,
+  `METHOD:PUBLISH`, `X-WR-CALNAME:Biķernieku Trases Kalendārs`, `X-WR-TIMEZONE:Europe/Riga`,
+  followed by the existing Europe/Riga `VTIMEZONE` definition.
 - **Per event:**
-  - `BEGIN:VEVENT`, `UID`, `DTSTAMP`.
-  - `DTSTART;TZID=Europe/Riga:` and `DTEND;TZID=Europe/Riga:` values: the date with `-` removed,
-    `T`, the time with `:` removed, `00`.
-  - `SUMMARY`; `LOCATION` (only when the escaped value is non-empty).
-  - `DESCRIPTION:` + escape(join(`"\n"`, parts)), where `parts` is `Kategorija: <cat>` (only if
-    the category is non-empty) followed by `Pasākuma saite: <url>`. The newline is escaped to
-    a literal `\n`.
-  - `END:VEVENT`.
-- The file ends with `END:VCALENDAR`.
-- **Escaping:** `\` → `\\`, then `,` → `\,`, `;` → `\;`, newline → `\n`. `\r` is untouched.
-- **Folding:** a line of at most 75 UTF-8 bytes is unchanged. A longer line is cut so that no
-  segment exceeds 74 bytes and no UTF-8 sequence is split. Each break inserts `CRLF` + space,
-  and the space counts toward the next segment's 74.
-- Lines are joined with `CRLF`, plus a trailing `CRLF`. The file is written as UTF-8 bytes.
+  - `UID`.
+  - `DTSTAMP`: the run time, UTC.
+  - `DTSTART` / `DTEND` with `TZID=Europe/Riga`, local `yyyyMMdd'T'HHmmss`.
+  - `SUMMARY` and `LOCATION`.
+  - `DESCRIPTION`: a `Kategorija: <category>` line when the category is non-empty, then
+    `Pasākuma saite: <link>`.
+- **Format:** RFC 5545 text escaping (backslash, `;`, `,`, line breaks → `\n`) and line folding
+  at 75 octets without splitting UTF-8 characters; CRLF line endings; UTF-8.
 
-### 3.8 Cache, guard and file I/O (`CalendarCache`)
+### 3.5 File writing and the data-preservation guard (`CalendarCache`)
 
-- **`loadFromDisk`:** if the output file exists, log `[*] Found existing calendar file: <path>`,
-  read the bytes, set `lastUpdated` from the file's mtime (local time), derive dashboard events
-  (§3.10) and log `[*] Loaded <n> events from local disk cache.`. Errors log
-  `[!] Error loading <path>: <error>`.
-- **`refresh`** (serialized by a lock):
-  1. Log `[*] Refreshing calendar cache...` and scrape.
-  2. **Guard:** if there are 0 events, the file exists and it is larger than 500 bytes, log
-     `[!] Scrape returned 0 events. Preserving existing calendar file.` and return `false`.
-  3. Otherwise build the ICS and write it to a temporary file in the same directory, then move
-     it atomically over the target.
-  4. Update the in-memory state and `lastUpdated`, log
-     `[+] Successfully refreshed. Extracted <n> events.` and return `true`.
-  - Any exception logs `[!] Scraper refresh failed: <error>` and returns `false`.
+- If a scrape yields 0 events while the output file exists and is larger than 500 bytes, keep
+  the file, log it, and fail (exit 1). This is unchanged.
+- Otherwise write a temporary file in the same directory and atomically move it over the target.
+  A crash can never leave a truncated calendar for `run.sh` to commit.
 
-### 3.9 CLI (`CliOptions`, `Main`)
+### 3.6 Command line (`CliOptions`, `Main`)
 
 - **Flags** (same names and defaults):
   - `-o/--output` (default `bikernieki.ics`).
-  - `-m/--months` int (default `3`).
+  - `-m/--months` (default `3`).
   - `-s/--serve`.
-  - `-p/--port` int (default `8080`).
+  - `-p/--port` (default `8080`).
   - `-t/--test`.
   - `-h/--help`.
-- **Accepted forms:** `--opt value`, `--opt=value`, `-o value`, `-ovalue`.
-- **Usage errors** (unknown argument, missing or non-integer value) print usage and an
-  `error: …` line to **stderr**, then exit with code **2**, as argparse does. `--help` prints
-  to stdout and exits 0.
-- **Modes:**
-  - `--test`: run `SelfTest`, exit 0 or 1.
-  - `--serve`: server mode.
-  - Otherwise: `loadFromDisk`, log
-    `[*] Starting CLI scrape: lookahead = <m> months, saving to <path>...`, `refresh`, then
-    `[+] Completed! Calendar written to <path>` with exit 0, or `[!] Scrape execution failed.`
-    with exit 1.
-- All log output goes to stdout through a UTF-8 `PrintStream`, so Latvian text is printed
-  correctly even under cron's `POSIX` locale.
+- **Exit codes:** 0 for success, 1 for a failed scrape (or the guard) or a failed self-test,
+  and 2 for usage errors, which print usage to stderr.
+- **Logs:** stdout, encoded as UTF-8 regardless of locale, so cron logs show Latvian text
+  correctly. They keep the existing `[*]`, `[+]`, `[!]` and `[-]` style and content: fetch URLs,
+  failed attempts, exclusions, event counts, guard and completion messages.
 
-### 3.10 Server (`DashboardServer`)
+### 3.7 Server mode (`DashboardServer`)
 
-- **Startup:** if no ICS bytes are cached (file missing, unreadable or empty), log
-  `[*] No calendar file found on disk. Performing initial scrape...` and refresh. Bind all interfaces on `--port` with a single-threaded executor, like
-  Python's `HTTPServer`. Log `[+] Web Server running at: http://localhost:<port>/` and
-  `[+] Subscribe to your calendar at: http://localhost:<port>/calendar.ics`. On shutdown (signal),
-  log `[*] Shutting down server...`.
-- **Routing** compares the raw request target (path + query) exactly, as `self.path` does.
-  Per-request logging is suppressed. Non-GET methods get 501.
+- **Startup:** loads the existing calendar file. If there is none, it scrapes first. Logs the
+  dashboard and subscription URLs.
 
-| Target | Behavior |
+| Path | Behavior |
 |---|---|
-| `/calendar.ics` | If `lastUpdated` is unset or more than 12 h old: log `[*] Cache expired. Scraping in background...` and start a background refresh unless one is already running. Respond 200 with `Content-Type: text/calendar; charset=utf-8`, `Content-Disposition: attachment; filename=bikernieki.ics`, `Access-Control-Allow-Origin: *`, `Content-Length`, and the cached ICS bytes. |
-| `/`, `/index.html` | 200 `text/html; charset=utf-8`; dashboard rendered from `dashboard.html` (the Python page verbatim, with `{{ }}` un-doubled and named placeholders for event count, status time and table rows). The rows have the same markup; summary, date, location and category are `HtmlText.escape`d, and the time cell is not escaped (as in Python). |
-| `/refresh` | Log `[*] Force refresh requested via Web UI`, refresh synchronously, then 303 with `Location: /`. |
-| anything else | 404 with body `404 Not Found`. |
+| `/calendar.ics` | 200 with the calendar bytes and the same headers as today: `Content-Type: text/calendar; charset=utf-8`, `Content-Disposition: attachment; filename=bikernieki.ics`, `Access-Control-Allow-Origin: *`. If the data is older than 12 h, starts a background refresh (at most one at a time). |
+| `/`, `/index.html` | The same dashboard page (status, subscription link, event count, last-update time, event table). |
+| `/refresh` | Refreshes synchronously, then redirects (303) to `/`. |
+| anything else | 404. |
 
-- **Dashboard events loaded from disk** come from the same quick ICS parse as Python: field
-  regexes, `\,` `\;` `\\` unescapes and the category regex. The parse runs on unfolded lines
-  (deviation 2). Status time is `yyyy-MM-dd HH:mm:ss`, or `Never`.
+- After a refresh the dashboard lists events from memory; otherwise it lists them from the file
+  on disk via `IcsReader`.
 
-### 3.11 Self-test (`SelfTest`)
+### 3.8 Self-test (`--test`)
 
-- Ports `run_unit_tests` with the same mock HTML, assertions and messages:
-  `[*] Running parser unit tests...` and `[+] All parser unit tests passed successfully!`, or
-  `[!] Unit test FAILED: …`.
-- Additional checks exercise what the native image must bundle: decoding `&mdash;` through the
-  entity resource, loading the dashboard template, and computing MD5.
-- Returns `true`/`false`; `Main` maps it to exit 0/1.
+`SelfTest` parses an embedded sample of bksb.lv markup (the snippet the Python self-test uses)
+and checks:
 
-### 3.12 Intentional deviations
+- date, times, summary, category and location;
+- normalization of the four excluded locations;
+- line folding;
+- UID stability.
 
-1. `--serve` serves the stored `.ics` bytes unchanged. Python's text-mode read converted CRLF to
-   LF.
-2. The dashboard's quick ICS parse unfolds folded lines first. Python truncated long titles.
-3. At most one background refresh runs at a time. Python could stack up several.
-4. A refresh blocked by the zero-event guard keeps the previous events on the dashboard.
-   Python cleared the in-memory list while keeping the file.
-5. Valueless `class`, `title` or `href` attributes are treated as empty strings. Python raised
-   `TypeError` and aborted the whole scrape.
+It prints a pass or fail line and exits 0 or 1. CI runs it on the native binary, and `run.sh`
+runs it before installing a downloaded binary.
 
-None of these affect the generated `.ics` file.
+### 3.9 Accepted differences from the Python version
+
+- Long lines fold at the RFC limit of 75 octets instead of 74. The first Java-generated commit
+  reflows some lines, but calendar apps see identical data.
+- Diacritics are stripped generically (NFD) rather than with a fixed Latvian letter map. This
+  gives the same matches for the four excluded names.
+- Invalid times such as `25:00` are treated as "no time" (all day) instead of being written
+  verbatim. They don't occur in published data.
+- Entity decoding and trimming follow jsoup and Java rules. Results differ only for unusual
+  input, such as non-breaking spaces at title edges.
+- Server mode:
+  - serves the file's bytes unchanged (Python converted CRLF to LF);
+  - shows full titles of long events;
+  - runs only one background refresh at a time;
+  - keeps the dashboard list when the guard blocks a refresh;
+  - ignores query strings in routes;
+  - answers non-GET requests with 405.
+- Malformed markup, such as attributes without values, no longer aborts the whole scrape.
 
 ## 4. Build (Gradle)
 
@@ -334,14 +274,15 @@ None of these affect the generated `.ics` file.
   - `application`: `mainClass = lv.sknarovs.bikernieki.Main`, so
     `./gradlew run --args="-m 3"` works on the JVM.
   - `org.graalvm.buildtools.native` version **1.1.14**.
-- **Java and tests:** `java.toolchain.languageVersion = 25`; repository `mavenCentral()`.
-  - Test dependencies: `platform("org.junit:junit-bom:6.1.3")`, `org.junit.jupiter:junit-jupiter`.
+- **Java:** `java.toolchain.languageVersion = 25`; repository `mavenCentral()`.
+- **Dependencies:**
+  - Runtime: `implementation("org.jsoup:jsoup:1.23.2")`.
+  - Test: `platform("org.junit:junit-bom:6.1.3")` and `org.junit.jupiter:junit-jupiter`.
   - Test runtime: `org.junit.platform:junit-platform-launcher`.
   - `tasks.test { useJUnitPlatform() }`.
 - **`graalvmNative`:**
   - `toolchainDetection = false`: `native-image` comes from `GRAALVM_HOME`, then `JAVA_HOME`.
-  - `binaries.all { resources.autodetect() }` bundles the entity table, dashboard template and
-    test fixtures.
+  - `binaries.all { resources.autodetect() }` bundles the dashboard template and the test pages.
   - `binaries.main`: `imageName = "bikernieki-calendar"` and `buildArgs.add("-march=compatibility")`.
 - **Local commands:**
   - `./gradlew test` works on the host or in the toolbox.
@@ -353,7 +294,7 @@ None of these affect the generated `.ics` file.
 - **Triggers:**
   - `push` to `main` with `paths-ignore: [bikernieki.ics, '**/*.md']`, so the Pi's daily
     commits don't start builds.
-  - `push` of tags `v*` (path filters don't apply to tags).
+  - `push` of tags `v*` (GitHub never applies path filters to tag pushes).
   - `pull_request` and `workflow_dispatch`.
 - **Permissions:** workflow-level `contents: read`.
 - **Job `build`:**
@@ -413,41 +354,36 @@ Cron line (README): `0 4 * * * /home/<user>/bksb-calendar/run.sh >> /tmp/bikerni
 
 ## 7. Testing
 
-- **Golden parity fixtures** (`src/test/resources/golden/`):
-  - Real month pages fetched from bksb.lv:
+- **Regression tests on real pages:**
+  - `src/test/resources/pages/` holds five month pages fetched from bksb.lv on 2026-10-09:
     - `2026-07`: all four excluded locations, with case and diacritic variants.
-    - `2026-08`: 90 events, including two real midnight crossings.
+    - `2026-08`: 90 events, including two midnight crossings.
     - `2026-10`, `2026-11`, `2026-12`: the live cron window.
-  - A handwritten `edge-cases.html` covering:
-    - single-time, all-day, overnight and equal start/end events;
-    - excluded locations with quotes, diacritics and odd whitespace; a missing location;
-    - named, numeric, legacy (no `;`), invalid and unknown entities, and double-escaped
-      tooltips;
-    - nested tags in titles; fake title anchors inside `<script>`, `<title>` and comments;
-    - multibyte titles that fold at the 74-byte boundary; `, ; \` and newlines in text;
-    - duplicate events across pages; absolute hrefs; valueless attributes other than
-      `class`/`title`/`href` (Python crashes on those three, so deviation 5 is covered by
-      Java-only unit tests instead).
-  - Expected outputs come from running the **unmodified Python functions** with the network,
-    sleeps and month list stubbed, using CPython 3.14.8. DTSTAMP is normalized to
-    `20261009T000000Z`. Outputs: one `.ics` per page and one combined `calendar.ics` covering
-    all real pages (cross-month dedupe and sort).
-  - `golden/README.md` records the source commit (`ff57ef7`), the Python version and the
-    procedure. The generator script is not kept, since Python leaves the repo.
-- **Unit tests** cover each class:
-  - Folding boundaries, escaping, the unescape tables, time parsing, normalization and UIDs.
+  - For each page, `expected/<page>.tsv` lists the events the current Python script extracts
+    (excluded events removed, page order), one per line. Columns: UID, start date, start time,
+    end date, end time, summary, category, location, link.
+  - The files are generated once from the script at `ff57ef7` with the network stubbed;
+    `expected/README.md` records how.
+  - `EventParser` output for each page must match its file exactly, UIDs included. A pipeline
+    test feeds `2026-10` to `2026-12` through `CalendarScraper` with a stub `MonthSource` and
+    checks the deduplicated, sorted result.
+- **Unit tests** per class:
+  - Title formats, including single-time, all-day, `08:00-00:00`, a single time at 23:30 and an
+    invalid time.
+  - Excluded-location variants and the missing-location default.
+  - An entity-encoded tooltip.
+  - ICS escaping, folding with multibyte characters at the boundary, and document structure.
+  - The guard and atomic write, and an `IcsReader` round trip.
   - CLI parsing and exit codes.
-  - Guard, atomic write and disk load.
-  - `BksbClient` against a local `HttpServer`: success, 5xx then success, timeout and invalid
-    UTF-8.
+  - `BksbClient` against a local `HttpServer`: success, 5xx then success, and timeout.
   - `DashboardServer` routes on an ephemeral port with a stub `MonthSource`.
-  - `SelfTest` returns `true`.
+  - `SelfTest` passes.
   - Tests never touch the network.
 - **Native:** CI runs the full JUnit suite as an aarch64 native image (`nativeTest`) plus
   `--test` on the release binary, and `run.sh` runs `--test` again before installing.
 - **One-time live check** (toolbox, before cutover): run the Python script and the native
-  binary back to back against live bksb.lv. After normalizing DTSTAMP, the files must be
-  identical.
+  binary back to back against live bksb.lv. After unfolding lines and dropping DTSTAMP, the two
+  calendars must be identical.
 
 ## 8. Repository cleanup and docs
 
@@ -468,7 +404,8 @@ Cron line (README): `0 4 * * * /home/<user>/bksb-calendar/run.sh >> /tmp/bikerni
    Pi's latest calendar commits, then push.
 2. Tag and push `v1.0.0`, and wait for the `release` job.
 3. On the Pi: `cd ~/bksb-calendar && git pull && ./run.sh`. This first run downloads the binary,
-   generates the calendar and pushes it.
+   generates the calendar and pushes it. The resulting commit reflows folded lines (§3.9), but
+   the events and UIDs are unchanged.
 4. `crontab -e`: replace `update_calendar.sh` with `run.sh`.
 
 Between steps 1 and 3 the old cron job's `git push` fails, because it never pulls, so steps 1–4
@@ -481,8 +418,8 @@ should happen on the same day. Python remains installed on the Pi but is unused.
 | glibc newer on the build host than on the Pi | Build in `debian:bookworm` (2.36), the oldest Debian DietPi v10 supports |
 | CPU features unsupported on Pi 3/4 (SIGILL) | `-march=compatibility`; `run.sh` runs `--test` before installing a binary |
 | 16K-page kernel on Pi 5 | Native Image assumes ≥ 64K pages by default (`SubstrateOptions.getPageSize`) |
-| HTTPS, MD5, `HttpServer` or resources missing from the native image | First implementation step is a native feasibility spike in the toolbox; `nativeTest` + `--test` in CI |
-| Parser divergence from Python | Golden tests on real and edge-case pages; live side-by-side diff before cutover |
+| jsoup, HTTPS, MD5, `HttpServer` or the dashboard resource missing from the native image | First implementation step is a native feasibility spike in the toolbox; `nativeTest` + `--test` in CI |
+| Java extracts different events or UIDs than Python | Regression tests on five real pages; live comparison before cutover |
 | Push rejected or conflicting on the Pi | `git pull --rebase` before generating; abort and fail loudly on conflict |
 | GitHub unreachable on the Pi | Update step falls back to the installed binary |
 | Bad release reaches the Pi | Self-test gate; roll back by marking the previous release as latest |
