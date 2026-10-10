@@ -143,7 +143,7 @@ Add this line to run every day at 04:00 (cron uses the Pi's local time zone):
 
 If the Pi still runs `update_calendar.sh`:
 
-1. `cd ~/bksb-calendar && git pull && ./run.sh`
+1. `cd ~/bksb-calendar && git pull --rebase && ./run.sh`
 2. `crontab -e` and replace `update_calendar.sh` with `run.sh` in the existing line
 
 Python is no longer needed.

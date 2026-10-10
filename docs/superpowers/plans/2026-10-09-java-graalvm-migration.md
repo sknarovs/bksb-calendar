@@ -1376,7 +1376,7 @@ Expected: one line, `<64 hex>  bikernieki-calendar-linux-aarch64`.
 
 - [ ] **Step 4: Cut over on the Pi (the user does this)**
 
-1. On the Pi: `cd ~/bksb-calendar && git pull && ./run.sh`.
+1. On the Pi: `cd ~/bksb-calendar && git pull --rebase && ./run.sh`.
    Expected: `[+] Installed new binary (…)`, scrape logs and
    `[+] Pushed updated calendar to GitHub.`. The commit diff reflows folded lines but keeps every
    UID.

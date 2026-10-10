@@ -388,7 +388,7 @@ Cron line (README): `0 4 * * * /home/<user>/bksb-calendar/run.sh >> /tmp/bikerni
 1. Finish on `java-migration`, with the live check passing. Merge into `main` after pulling the
    Pi's latest calendar commits, then push.
 2. Tag and push `v1.0.0`, and wait for the `release` job.
-3. On the Pi: `cd ~/bksb-calendar && git pull && ./run.sh`. This first run downloads the binary,
+3. On the Pi: `cd ~/bksb-calendar && git pull --rebase && ./run.sh`. This first run downloads the binary,
    generates the calendar and pushes it. The resulting commit reflows folded lines (§3.8), but
    the events and UIDs are unchanged.
 4. `crontab -e`: replace `update_calendar.sh` with `run.sh`.
