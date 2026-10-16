@@ -2,6 +2,13 @@
 
 Java scraper that generates an iCalendar feed for Biķernieku Race Track, shipped as a GraalVM native binary.
 
+## Branches
+
+- **`dev`** (the GitHub default branch) holds the code, CI and docs. Work here and tag releases here.
+- **`main`** is an orphan branch (no history shared with `dev`) holding only `run.sh`, `bikernieki.ics`, a short README and a `.gitignore`. The Pi clones it with `--single-branch` and pushes the calendar to it every day.
+- Subscribers' calendars point at `https://raw.githubusercontent.com/sknarovs/bksb-calendar/main/bikernieki.ics`: never rename `main` or move that file.
+- To change `run.sh`, work on `main` (for example in `git worktree add ../bksb-calendar-main main`) and pull before pushing, because the Pi commits to `main` daily.
+
 ## Developer Commands
 
 - **Run tests** (JUnit, no network, works on the host): `./gradlew test`
@@ -32,10 +39,10 @@ Java scraper that generates an iCalendar feed for Biķernieku Race Track, shippe
 
 ## Automation / Deployment
 
-- **CI** (`.github/workflows/build.yml`) runs on `ubuntu-24.04-arm` in a `debian:bookworm` container, so the binary only needs glibc 2.36 and runs on any DietPi v10. It runs `test nativeTest nativeCompile`, smoke-tests the binary with `--test`, and uploads `bikernieki-calendar-linux-aarch64` plus its `.sha256`.
+- **CI** (`.github/workflows/build.yml`) runs on pushes to `dev`, pull requests and `v*` tags, on `ubuntu-24.04-arm` in a `debian:bookworm` container, so the binary only needs glibc 2.36 and runs on any DietPi v10. It runs `test nativeTest nativeCompile`, smoke-tests the binary with `--test`, and uploads `bikernieki-calendar-linux-aarch64` plus its `.sha256`.
 - **Releases**: pushing a `v*` tag publishes those two files as a GitHub release. CI cannot reach bksb.lv, so it never scrapes.
-- **`run.sh`** is the Pi's daily cron job: `git pull --rebase`, install the latest release into `bin/` (checksum plus `--test` gate; on any failure it keeps the installed binary), run `bin/bikernieki-calendar -m 3 -o bikernieki.ics`, then commit `Update calendar events` and push. `BKSB_RELEASE_URL` overrides the release URL for local testing.
-- DTSTAMP changes on every run, so the Pi commits the calendar every day.
+- **`run.sh`** (on `main`) is the Pi's daily cron job: `git pull --rebase`, install the latest release into `bin/` (checksum plus `--test` gate; on any failure it keeps the installed binary), run `bin/bikernieki-calendar -m 3 -o bikernieki.ics`, then commit `Update calendar events` and push. `BKSB_RELEASE_URL` overrides the release URL for local testing.
+- DTSTAMP changes on every run, so the Pi commits the calendar to `main` every day.
 - Pushing requires SSH key auth on the Pi (deploy key or personal SSH key).
 
 ## Testing

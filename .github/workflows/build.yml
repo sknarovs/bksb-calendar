@@ -2,10 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
     tags: ['v*']
     paths-ignore:
-      - bikernieki.ics
       - '**/*.md'
   pull_request:
   workflow_dispatch:

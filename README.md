@@ -8,7 +8,7 @@ The calendar shows events that **block public access** to the race track (open 6
 
 ## Subscribe with iCloud Calendar
 
-Once set up on your Raspberry Pi, the `.ics` file is pushed to GitHub and stays updated daily.
+Once set up on your Raspberry Pi, the `.ics` file is pushed to the `main` branch on GitHub and stays updated daily.
 
 **Subscription URL:**
 ```
@@ -39,12 +39,25 @@ https://raw.githubusercontent.com/sknarovs/bksb-calendar/main/bikernieki.ics
    - `BKSB Spīdveja stadions` (speedway stadium — separate venue)
    - `BKSB "Motormuzeja līkums"` (museum circuit)
    - `BKSB lielā auto stāvvieta` (large parking lot — no track impact)
-3. Every day the Raspberry Pi runs `run.sh`, which regenerates `bikernieki.ics`, commits it and pushes it to GitHub
+3. Every day the Raspberry Pi runs `run.sh`, which regenerates `bikernieki.ics`, commits it and pushes it to the `main` branch
 4. Your subscribed calendar picks up the changes automatically
 
 GitHub Actions only builds the binary: it can't reach bksb.lv, so the scraping happens on the Pi.
 
 If a scrape finds no events at all while a calendar already exists (for example when bksb.lv is down), the existing file is kept and nothing is pushed.
+
+---
+
+## Branches
+
+| Branch | Contents |
+|--------|----------|
+| `dev` (default) | The Java source, the build and CI. Releases are tagged here. |
+| `main` | Only `run.sh` and the generated `bikernieki.ics`, which the Pi commits every day. It shares no history with `dev`. |
+
+The Pi clones only `main`, so it never downloads the source code. The subscription URL points at `bikernieki.ics` on `main`, so the branch must keep its name and the file must stay at its root.
+
+To change `run.sh`, check out `main` (for example with `git worktree add ../bksb-calendar-main main`) and pull before you push: the Pi commits there every day.
 
 ---
 
@@ -78,13 +91,13 @@ git tag v1.1.0
 git push origin v1.1.0
 ```
 
-The GitHub Actions workflow runs the tests (on the JVM and as a native image), builds `bikernieki-calendar-linux-aarch64` in a Debian 12 container — so it runs on any DietPi based on Debian 12 or newer — and publishes it with a `.sha256` file as a GitHub release. The Pi installs it on its next run. Pushes to `main` and pull requests run the same build without publishing.
+The GitHub Actions workflow runs the tests (on the JVM and as a native image), builds `bikernieki-calendar-linux-aarch64` in a Debian 12 container — so it runs on any DietPi based on Debian 12 or newer — and publishes it with a `.sha256` file as a GitHub release. The Pi installs it on its next run. Pushes to `dev` and pull requests run the same build without publishing.
 
 ---
 
 ## Raspberry Pi Automation (DietPi)
 
-`run.sh` is the daily cron job. Each run it:
+`run.sh`, on the `main` branch, is the daily cron job. Each run it:
 
 1. pulls the latest commits (`git pull --rebase`)
 2. installs the binary from the latest GitHub release into `bin/` when its checksum changed — only after the new binary passes its own `--test`; if GitHub can't be reached or the download is broken, it keeps using the installed binary
@@ -96,8 +109,10 @@ It needs a 64-bit (aarch64) OS such as DietPi v10, plus `git` and `curl`, which 
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/sknarovs/bksb-calendar.git ~/bksb-calendar
+git clone --single-branch --branch main https://github.com/sknarovs/bksb-calendar.git ~/bksb-calendar
 ```
+
+This fetches only the `main` branch: `run.sh` and the calendar, without the source code.
 
 ### 2. Set up Git authentication
 
@@ -138,15 +153,6 @@ Add this line to run every day at 04:00 (cron uses the Pi's local time zone):
 ```
 0 4 * * * /home/username/bksb-calendar/run.sh >> /tmp/bikernieku-cron.log 2>&1
 ```
-
-### Switching from the Python version
-
-If the Pi still runs `update_calendar.sh`:
-
-1. `cd ~/bksb-calendar && git pull --rebase && ./run.sh`
-2. `crontab -e` and replace `update_calendar.sh` with `run.sh` in the existing line
-
-Python is no longer needed.
 
 ---
 
